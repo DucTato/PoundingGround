@@ -473,30 +473,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: magAmmo
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: maxAmmo
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: resAmmo
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: isAutomatic
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: bulletToFire
-      value: 
-      objectReference: {fileID: 6060071004871136326, guid: a8d0eb9a74f31604d8733d455f338361, type: 3}
-    - target: {fileID: 8629245349747732456, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: timeBetweenShots
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8629245350552457280, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -544,18 +520,6 @@ PrefabInstance:
     - target: {fileID: 8629245350552457285, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245350746817807, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245350746817807, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629245350746817807, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad2ea280b660df48b0ce46bd61895b0, type: 3}
