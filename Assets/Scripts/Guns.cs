@@ -6,10 +6,11 @@ public class Guns : MonoBehaviour
 {
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
-    [SerializeField] private GameObject bulletToFire, muzzleFX;
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private Animator animator;
+    [SerializeField] private GameObject bulletToFire;
+    [SerializeField] private Transform shootPoint; 
     [SerializeField] private float reloadSpeedMult;
+    private ParticleSystem muzzleFX;
+    private Animator animator;
     public int currentAmmo;
     public bool isAutomatic;
     private float shotCounter;
@@ -18,6 +19,8 @@ public class Guns : MonoBehaviour
     void Start()
     {
         currentAmmo = magAmmo;
+        animator = GetComponent<Animator>();
+        muzzleFX = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class Guns : MonoBehaviour
                         // Muzzle FX
                         if (Random.Range(0, 3) != 0)
                         {
-                            Instantiate(muzzleFX, shootPoint.position, shootPoint.rotation);
+                            muzzleFX.Play();
                         }
                         // spawn vien dan 
                         Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
@@ -52,7 +55,7 @@ public class Guns : MonoBehaviour
                     // Muzzle FX
                     if (Random.Range(0, 3) != 0)
                     {
-                        Instantiate(muzzleFX, shootPoint.position, shootPoint.rotation);
+                        muzzleFX.Play();
                     }
                     // spawn vien dan 
                     Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
