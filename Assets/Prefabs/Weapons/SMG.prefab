@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 3412265356935206431}
   - component: {fileID: 3412265356935206430}
   - component: {fileID: 8986295760341794112}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SMG
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,10 +50,15 @@ MonoBehaviour:
   resAmmo: 70
   timeBetweenShots: 0.1
   bulletToFire: {fileID: 4305575523733841318, guid: dd3f167eac86c574391970afe51cf645, type: 3}
+  alternateState: {fileID: 0}
+  ammoCasing: {fileID: 466863614232638678, guid: 27c6116467d86394ca36b75c95ab58be, type: 3}
   shootPoint: {fileID: 3412265357065522483}
   reloadSpeedMult: 0.9
-  currentAmmo: 0
+  zoomInMax: 6.2
+  hasAlternateState: 0
+  hasCasing: 1
   isAutomatic: 1
+  currentAmmo: 0
 --- !u!95 &8986295760341794112
 Animator:
   serializedVersion: 4
@@ -83,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3412265357065522483}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: shootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 548864547649941742}
   - component: {fileID: 3098741913250192266}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,6 +207,10 @@ PrefabInstance:
     - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_Name
       value: muzzleFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390589, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_RootOrder
@@ -308,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 9128113311062050012, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
       propertyPath: m_Name
       value: muzzleFlash
+      objectReference: {fileID: 0}
+    - target: {fileID: 9128113311062050012, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}

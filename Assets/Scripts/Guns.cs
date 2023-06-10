@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class Guns : MonoBehaviour
 {
+    CameraController cameraRef;
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
-    [SerializeField] private GameObject bulletToFire;
+    [SerializeField] private GameObject bulletToFire, alternateState, ammoCasing;
     [SerializeField] private Transform shootPoint; 
-    [SerializeField] private float reloadSpeedMult;
+    [SerializeField] private float reloadSpeedMult, zoomInMax;
+    [SerializeField] private bool hasAlternateState;
+    [SerializeField] private bool hasCasing;
     private ParticleSystem muzzleFX;
     private Animator animator;
-    public int currentAmmo;
     public bool isAutomatic;
+    public int currentAmmo;
     private float shotCounter;
     private bool isReady = true;
+    
+    
+    
     // Start is called before the first frame update
     void Start()
     {
         currentAmmo = magAmmo;
         animator = GetComponent<Animator>();
         muzzleFX = GetComponentInChildren<ParticleSystem>();
+        cameraRef = CameraController.instance;
+       
     }
 
     // Update is called once per frame
@@ -74,9 +82,36 @@ public class Guns : MonoBehaviour
                     animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
                 }
             }
-        }     
+        }
+        if (hasAlternateState)
+        {
+            if (currentAmmo == 0)
+            {
+                alternateState.SetActive(false);
+            }
+            else
+            {
+                alternateState.SetActive(true);
+            }
+        }
+        if (Input.GetMouseButton(1))
+        {
+            float currentZoom = cameraRef.mainCamera.orthographicSize;
+            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, zoomInMax, Time.deltaTime * 10);
+        }
+        else
+        {
+            float currentZoom = cameraRef.mainCamera.orthographicSize;
+            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 7f, Time.deltaTime * 10);
 
-        
+        }
+    }
+    private void onShotFired()
+    {
+        if (hasCasing)
+        {
+            Instantiate(ammoCasing, transform.position, transform.rotation);
+        }
     }
     private void onReloadStart()
     {

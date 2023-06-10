@@ -19,4 +19,8 @@ public class BulletLogic : MonoBehaviour
     {
         bulletRB.velocity = transform.right * moveSpeed;
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Destroy(gameObject);
+    }
 }
