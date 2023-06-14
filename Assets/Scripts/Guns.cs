@@ -12,6 +12,7 @@ public class Guns : MonoBehaviour
     [SerializeField] private float reloadSpeedMult, zoomInMax;
     [SerializeField] private bool hasAlternateState;
     [SerializeField] private bool hasCasing;
+    
     private ParticleSystem muzzleFX;
     private Animator animator;
     public bool isAutomatic;

@@ -6,10 +6,12 @@ public class BulletLogic : MonoBehaviour
 {
     private Rigidbody2D bulletRB; // Declaration
     [SerializeField] private float moveSpeed;
+    [SerializeField] private bool isExplosive = false;
+    [SerializeField] private GameObject Explosion;
     // Start is called before the first frame update
     void Start()
     {
-        moveSpeed = 10f;
+        
         bulletRB = GetComponent<Rigidbody2D>(); // Value
         
     }
@@ -21,6 +23,10 @@ public class BulletLogic : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isExplosive)
+        {
+            Instantiate(Explosion, transform.position, transform.rotation);
+        }
         Destroy(gameObject);
     }
 }

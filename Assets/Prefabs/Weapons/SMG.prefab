@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3412265356935206431}
   - component: {fileID: 3412265356935206430}
   - component: {fileID: 8986295760341794112}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: SMG
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3412265357065522483}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: shootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 548864547649941742}
   - component: {fileID: 3098741913250192266}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390589, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_RootOrder
@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9128113311062050012, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}

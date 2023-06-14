@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3885091500205701354}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: shootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3885091500205701365}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.215, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0.7999999}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3885091501450672117}
   - component: {fileID: 3885091501450672119}
   - component: {fileID: 1093505882059655352}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: AWM-Gun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
@@ -84,12 +84,12 @@ MonoBehaviour:
   timeBetweenShots: 2
   bulletToFire: {fileID: 2138046255621062280, guid: f373117a13253fe40b663468c5d3fc3c, type: 3}
   alternateState: {fileID: 0}
-  ammoCasing: {fileID: 0}
+  ammoCasing: {fileID: 466863614232638678, guid: 4db3f7c0e494647428cac0a5085cdd30, type: 3}
   shootPoint: {fileID: 3885091500205701354}
   reloadSpeedMult: 0.6
-  zoomInMax: 0
+  zoomInMax: 2
   hasAlternateState: 0
-  hasCasing: 0
+  hasCasing: 1
   isAutomatic: 0
   currentAmmo: 0
 --- !u!95 &1093505882059655352
@@ -122,7 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 498529783337841170}
   - component: {fileID: 2244126771226742783}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5560657955911613878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.07, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -210,7 +210,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390589, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_RootOrder
@@ -320,7 +320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9128113311062050012, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}

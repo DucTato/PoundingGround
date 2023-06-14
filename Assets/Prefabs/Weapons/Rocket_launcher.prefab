@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5585973126738961596}
   - component: {fileID: 4525745531949225754}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: muzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2193754169621493420}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: shootPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -154,9 +154,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2209037421730364257}
   - component: {fileID: 833434814516337442}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Weapon Alter
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,9 +239,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2761095625759048930}
   - component: {fileID: 566205692211738996}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: muzzleFlash
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -350,9 +350,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8555194278155289313}
   - component: {fileID: 7360551930360923003}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Weapon
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -435,9 +435,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8990653291084236175}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: shootPoint
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -450,7 +450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8990653291084236174}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.022, z: 0}
+  m_LocalPosition: {x: -0, y: 0.321, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -470,8 +470,8 @@ GameObject:
   - component: {fileID: 8990653292465245985}
   - component: {fileID: 8990653292465246175}
   - component: {fileID: 1071655145851929743}
-  m_Layer: 7
-  m_Name: Rocket
+  m_Layer: 3
+  m_Name: Rocket_launcher
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
   ammoCasing: {fileID: 0}
   shootPoint: {fileID: 8990653291084236175}
   reloadSpeedMult: 0.4
-  zoomInMax: 0
+  zoomInMax: 5
   hasAlternateState: 1
   hasCasing: 0
   isAutomatic: 0
@@ -551,7 +551,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390589, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_RootOrder
@@ -617,7 +617,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_Layer
-      value: 7
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2791954120367390584, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
+      propertyPath: m_TagString
+      value: Weapon
       objectReference: {fileID: 0}
     - target: {fileID: 2791954120367390589, guid: 6c0e2200d4b4db2429f40f215962be6c, type: 3}
       propertyPath: m_RootOrder
