@@ -5,6 +5,7 @@ using UnityEngine;
 public class Guns : MonoBehaviour
 {
     CameraController cameraRef;
+    PlayerController playerRef;
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
     [SerializeField] private GameObject bulletToFire, alternateState, ammoCasing;
@@ -32,24 +33,38 @@ public class Guns : MonoBehaviour
         animator = GetComponent<Animator>();
         muzzleFX = GetComponentInChildren<ParticleSystem>();
         cameraRef = CameraController.instance;
-       
+        playerRef = PlayerController.instance;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isReady)
+        if(playerRef.EPC)
         {
-            if (shotCounter > 0)
+            if (isReady)
             {
-                shotCounter -= Time.deltaTime;             
-            }
-            else
-            {
-                if (isAutomatic)
+                if (shotCounter > 0)
                 {
-                    if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && currentAmmo > 0) // hoac la click chuot, hoac la giu chuot = Fire
-                    { 
+                    shotCounter -= Time.deltaTime;
+                }
+                else
+                {
+                    if (isAutomatic)
+                    {
+                        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && currentAmmo > 0) // hoac la click chuot, hoac la giu chuot = Fire
+                        {
+                            animator.SetTrigger("shotFired");
+                        }
+                        else
+                        {
+                            if (currSpread > 0)
+                            {
+                                currSpread -= spreadRecovery;
+                            }
+                        }
+                    }
+                    else if (Input.GetMouseButtonDown(0) && currentAmmo > 0) // click chuot = Fire
+                    {
                         animator.SetTrigger("shotFired");
                     }
                     else
@@ -60,20 +75,7 @@ public class Guns : MonoBehaviour
                         }
                     }
                 }
-                else if (Input.GetMouseButtonDown(0) && currentAmmo > 0) // click chuot = Fire
-                {   
-                    animator.SetTrigger("shotFired"); 
-                }
-                else
-                {
-                    if (currSpread > 0)
-                    {
-                        currSpread -= spreadRecovery;
-                    }
-                }
             }
-
-            
             if (currentAmmo < magAmmo)
             {
                 if (Input.GetKeyDown("r") && resAmmo != 0)
@@ -82,8 +84,18 @@ public class Guns : MonoBehaviour
                     animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
                 }
             }
+            if (Input.GetMouseButton(1))
+            {
+                float currentZoom = cameraRef.mainCamera.orthographicSize;
+                cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, zoomInMax, Time.deltaTime * 10);
+            }
+            else
+            {
+                float currentZoom = cameraRef.mainCamera.orthographicSize;
+                cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 13f, Time.deltaTime * 10);
+            }
         }
-        
+        // Update the visual state of the current gun
         if (hasAlternateState)
         {
             if (currentAmmo == 0)
@@ -94,16 +106,6 @@ public class Guns : MonoBehaviour
             {
                 alternateState.SetActive(true);
             }
-        }
-        if (Input.GetMouseButton(1))
-        {
-            float currentZoom = cameraRef.mainCamera.orthographicSize;
-            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, zoomInMax, Time.deltaTime * 10);
-        }
-        else
-        {
-            float currentZoom = cameraRef.mainCamera.orthographicSize;
-            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 13f, Time.deltaTime * 10);
         }
     }
     private void onShotFired()
