@@ -57,6 +57,9 @@ MonoBehaviour:
   zoomInMax: 0
   hasAlternateState: 0
   hasCasing: 1
+  maxSpread: 10
+  spreadMult: 4.5
+  spreadRecovery: 1.5
   isAutomatic: 0
   currentAmmo: 0
 --- !u!95 &6564532655620489692

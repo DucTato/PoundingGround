@@ -12,12 +12,15 @@ public class Guns : MonoBehaviour
     [SerializeField] private float reloadSpeedMult, zoomInMax;
     [SerializeField] private bool hasAlternateState;
     [SerializeField] private bool hasCasing;
+    [SerializeField] private float maxSpread, spreadMult, spreadRecovery;
     
+
+
     private ParticleSystem muzzleFX;
     private Animator animator;
     public bool isAutomatic;
     public int currentAmmo;
-    private float shotCounter;
+    private float shotCounter, currSpread;
     private bool isReady = true;
     
     
@@ -39,42 +42,38 @@ public class Guns : MonoBehaviour
         {
             if (shotCounter > 0)
             {
-                shotCounter -= Time.deltaTime;
+                shotCounter -= Time.deltaTime;             
             }
             else
             {
                 if (isAutomatic)
                 {
                     if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && currentAmmo > 0) // hoac la click chuot, hoac la giu chuot = Fire
-                    {
-                        // Muzzle FX
-                        if (Random.Range(0, 3) != 0)
-                        {
-                            muzzleFX.Play();
-                        }
-                        // spawn vien dan 
-                        Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
+                    { 
                         animator.SetTrigger("shotFired");
-                        currentAmmo--;
-                        shotCounter = timeBetweenShots;
+                    }
+                    else
+                    {
+                        if (currSpread > 0)
+                        {
+                            currSpread -= spreadRecovery;
+                        }
                     }
                 }
                 else if (Input.GetMouseButtonDown(0) && currentAmmo > 0) // click chuot = Fire
+                {   
+                    animator.SetTrigger("shotFired"); 
+                }
+                else
                 {
-                    // Muzzle FX
-                    if (Random.Range(0, 3) != 0)
+                    if (currSpread > 0)
                     {
-                        muzzleFX.Play();
+                        currSpread -= spreadRecovery;
                     }
-                    // spawn vien dan 
-                    Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
-                    animator.SetTrigger("shotFired");
-                    currentAmmo--;
-                    shotCounter = timeBetweenShots;
                 }
             }
 
-
+            
             if (currentAmmo < magAmmo)
             {
                 if (Input.GetKeyDown("r") && resAmmo != 0)
@@ -84,6 +83,7 @@ public class Guns : MonoBehaviour
                 }
             }
         }
+        
         if (hasAlternateState)
         {
             if (currentAmmo == 0)
@@ -104,11 +104,32 @@ public class Guns : MonoBehaviour
         {
             float currentZoom = cameraRef.mainCamera.orthographicSize;
             cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 7f, Time.deltaTime * 10);
-
         }
     }
     private void onShotFired()
     {
+        // Muzzle FX
+        if (Random.Range(0, 3) != 0)
+        {
+            muzzleFX.Play();
+        } 
+        if (currSpread < maxSpread)
+        {
+            currSpread += spreadMult;
+        }
+        // Weapon S p r e a d  :>
+        if (currentAmmo % 2 != 0)
+        {
+            shootPoint.rotation = transform.rotation * Quaternion.Euler(0f, 0f, Random.Range(0f, currSpread) + 90f);
+        }
+        else
+        {
+            shootPoint.rotation = transform.rotation * Quaternion.Euler(0f, 0f, Random.Range(0f, -currSpread) + 90f);
+        }
+        // spawn vien dan 
+        Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
+        currentAmmo--;
+        shotCounter = timeBetweenShots;
         if (hasCasing)
         {
             Instantiate(ammoCasing, transform.position, transform.rotation);
@@ -132,5 +153,7 @@ public class Guns : MonoBehaviour
             resAmmo = 0;
         }
         isReady = true;
+        currSpread = 0;
+        shootPoint.rotation = Quaternion.Euler(0f, 0f, 90f);
     }
 }
