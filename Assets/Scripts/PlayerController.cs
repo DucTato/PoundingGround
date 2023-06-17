@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FishNet.Object;
+using FishNet.Connection;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public static PlayerController instance;
     [SerializeField] private Rigidbody2D playerRB;
     [SerializeField] private Animator anim;
     [SerializeField] private float moveSpeed, bodyRotation;
     [SerializeField] private Transform Head,Body,Legs;
-    public bool EPC;
+    public bool EPC = true;
     private Vector2 moveInput;
     private Quaternion rotationAngle;
 
@@ -17,10 +19,22 @@ public class PlayerController : MonoBehaviour
     {
         instance = this;
     }
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            CameraController.instance.target = transform;
+        }
+        else
+        {
+            EPC = false;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        EPC = true;
+        //EPC = true;
     }
 
     // Update is called once per frame

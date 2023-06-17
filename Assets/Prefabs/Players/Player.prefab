@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 8629245350552457284}
   - component: {fileID: 7146245495553424401}
   - component: {fileID: 8793130611394585874}
+  - component: {fileID: 7439371629096426886}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -236,6 +237,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09f7aff8c8560f41a1c903994920d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   playerRB: {fileID: 8629245350552457282}
   anim: {fileID: 8629245350552457281}
   moveSpeed: 4
@@ -291,13 +295,54 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 004d4522bc0ce5744ba3acd578aff6b9, type: 3}
   - {fileID: 21300000, guid: 580810baada6d56448a284df43614521, type: 3}
   - {fileID: 21300000, guid: d077782f3f8559843b6db1beff90d3f7, type: 3}
-  Legs: []
   HeadSR: {fileID: 8629245351281662625}
   BodySR: {fileID: 8629245350439504942}
-  LegSR: {fileID: 8629245350855424097}
   currHead: 0
   currBody: 0
-  currLeg: 0
+--- !u!114 &7439371629096426886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629245350552457285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _useNetworkLod: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &8629245350855424099
 GameObject:
   m_ObjectHideFlags: 0

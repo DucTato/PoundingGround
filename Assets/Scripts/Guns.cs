@@ -103,7 +103,7 @@ public class Guns : MonoBehaviour
         else
         {
             float currentZoom = cameraRef.mainCamera.orthographicSize;
-            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 7f, Time.deltaTime * 10);
+            cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 13f, Time.deltaTime * 10);
         }
     }
     private void onShotFired()
@@ -152,8 +152,8 @@ public class Guns : MonoBehaviour
             currentAmmo = currentAmmo + resAmmo;
             resAmmo = 0;
         }
-        isReady = true;
         currSpread = 0;
         shootPoint.rotation = Quaternion.Euler(0f, 0f, 90f);
+        isReady = true;
     }
 }
