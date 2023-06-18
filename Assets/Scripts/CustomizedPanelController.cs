@@ -10,7 +10,7 @@ public class CustomizedPanelController : MonoBehaviour
     [SerializeField] private Text headText, bodyText;
     [SerializeField] private InputField enterNameText;
     private int currentHead, currentBody;
-    public string userInput;
+    private string userInput;
 
 
     public void leftBodyButton() {
@@ -21,7 +21,7 @@ public class CustomizedPanelController : MonoBehaviour
         }
         body.sprite = imageBodyList[currentBody];
         //Display current Head & Body part
-        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+        bodyText.text = "Body :        " + currentBody.ToString();
     }
     public void rightBodyButton() {
    
@@ -31,7 +31,7 @@ public class CustomizedPanelController : MonoBehaviour
         }
         body.sprite = imageBodyList[currentBody];
         //Display current Head & Body part
-        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+        bodyText.text = "Body :        " + currentBody.ToString();
     }
     public void leftHeadButton() {
    
@@ -41,7 +41,7 @@ public class CustomizedPanelController : MonoBehaviour
         }
         head.sprite = imageHeadList[currentHead];
         //Display current Head & Body part
-        headText.text = "Head :        " + (currentHead + 1).ToString();
+        headText.text = "Head :        " + currentHead.ToString();
     }
     public void rightHeadButton() {
    
@@ -51,13 +51,13 @@ public class CustomizedPanelController : MonoBehaviour
         }
         head.sprite = imageHeadList[currentHead];
         //Display current Head & Body part
-        headText.text = "Head :        " + (currentHead + 1).ToString();
+        headText.text = "Head :        " + currentHead.ToString();
     }
     public void randomButton() {
         currentHead = Random.Range(0, imageHeadList.Length);
         currentBody = Random.Range(0, imageBodyList.Length);
-        headText.text = "Head :        " + (currentHead + 1).ToString();
-        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+        headText.text = "Head :        " + currentHead.ToString();
+        bodyText.text = "Body :        " + currentBody.ToString();
         head.sprite = imageHeadList[currentHead];
         body.sprite = imageBodyList[currentBody];
     }
@@ -98,8 +98,8 @@ public class CustomizedPanelController : MonoBehaviour
 
         //Displays default value
         head.sprite = imageHeadList[currentHead];
-        headText.text = "Head :        " + (currentHead + 1).ToString();
+        headText.text = "Head :        " + currentHead.ToString();
         body.sprite = imageBodyList[currentBody];
-        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+        bodyText.text = "Body :        " + currentBody.ToString();
     }
 }

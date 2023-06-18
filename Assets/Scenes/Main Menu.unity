@@ -6984,7 +6984,6 @@ MonoBehaviour:
   headText: {fileID: 1831603092}
   bodyText: {fileID: 1983611790}
   enterNameText: {fileID: 21162299}
-  userInput: 
 --- !u!1 &983556481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7787,13 +7786,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 787206433}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 787206438}
+        m_TargetAssemblyTypeName: MainMenuScript, Assembly-CSharp
+        m_MethodName: startSelectedMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
