@@ -144,7 +144,7 @@ MonoBehaviour:
   - {x: 0.44969225, y: -0.30184543, z: 0}
   m_ShapePathHash: 1772769853
   m_Mesh: {fileID: 0}
-  m_InstanceId: 39634
+  m_InstanceId: 42034
 --- !u!114 &8790291967662366121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 186993062013997947}
   _networkObjectCache: {fileID: 186993062013997947}
   _componentConfiguration: 0
@@ -323,6 +323,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f319f4efd946c714cad33e1188d52486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 186993062013997947}
+  _networkObjectCache: {fileID: 186993062013997947}
   Heads:
   - {fileID: 21300000, guid: a35f76526955ba548bfe1021366b0488, type: 3}
   - {fileID: 21300000, guid: 985b294043257c84795b6461e7eddd2b, type: 3}
@@ -363,7 +366,9 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 8629245350552457284}
+  - {fileID: 8793130611394585874}
   - {fileID: 215521287762779637}
+  - {fileID: -6204447006756877312}
   - {fileID: 3177396744499393293}
   - {fileID: 8790291967662366121}
   - {fileID: 5648934108022762343}
@@ -396,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 1
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 186993062013997947}
   _networkObjectCache: {fileID: 186993062013997947}
   _componentConfiguration: 0
@@ -440,9 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 186993062013997947}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 186993062013997947}
   IgnoredParameters: []
   _animator: {fileID: 8629245350552457281}
   _smoothFloats: 1
@@ -546,7 +551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 6
   _addedNetworkObject: {fileID: 186993062013997947}
   _networkObjectCache: {fileID: 186993062013997947}
   _componentConfiguration: 0
@@ -675,7 +680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 186993062013997947}
   _networkObjectCache: {fileID: 186993062013997947}
   _componentConfiguration: 0

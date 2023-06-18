@@ -4,63 +4,102 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CustomizedPanelController : MonoBehaviour
 {
-    [SerializeField] public Image head, body;
-    [SerializeField] public Sprite[] imageHeadList;
-    [SerializeField] public Sprite[] imageBodyList;
-    [SerializeField] public Text headText, bodyText;
-    public int currentHead, currentBody;
+    [SerializeField] private Image head, body;
+    [SerializeField] private Sprite[] imageHeadList;
+    [SerializeField] private Sprite[] imageBodyList;
+    [SerializeField] private Text headText, bodyText;
+    [SerializeField] private InputField enterNameText;
+    private int currentHead, currentBody;
+    public string userInput;
 
 
-public void leftBodyButton() {
+    public void leftBodyButton() {
    
-    currentBody --;
-    if (currentBody < 0) {
-        currentBody = imageBodyList.Length - 1;
+        currentBody --;
+        if (currentBody < 0) {
+            currentBody = imageBodyList.Length - 1;
+        }
+        body.sprite = imageBodyList[currentBody];
+        //Display current Head & Body part
+        bodyText.text = "Body :        " + (currentBody + 1).ToString();
     }
-    body.sprite = imageBodyList[currentBody];
+    public void rightBodyButton() {
+   
+        currentBody ++;
+          if (currentBody > imageBodyList.Length-1){
+            currentBody = 0;
+        }
+        body.sprite = imageBodyList[currentBody];
+        //Display current Head & Body part
+        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+    }
+    public void leftHeadButton() {
+   
+        currentHead --;
+        if (currentHead < 0) {
+            currentHead = imageHeadList.Length -1;
+        }
+        head.sprite = imageHeadList[currentHead];
+        //Display current Head & Body part
+        headText.text = "Head :        " + (currentHead + 1).ToString();
+    }
+    public void rightHeadButton() {
+   
+        currentHead ++;
+        if (currentHead > imageHeadList.Length-1){
+            currentHead = 0;
+        }
+        head.sprite = imageHeadList[currentHead];
+        //Display current Head & Body part
+        headText.text = "Head :        " + (currentHead + 1).ToString();
+    }
+    public void randomButton() {
+        currentHead = Random.Range(0, imageHeadList.Length);
+        currentBody = Random.Range(0, imageBodyList.Length);
+        headText.text = "Head :        " + (currentHead + 1).ToString();
+        bodyText.text = "Body :        " + (currentBody + 1).ToString();
+        head.sprite = imageHeadList[currentHead];
+        body.sprite = imageBodyList[currentBody];
+    }
+    public void userNameInput(string userName) {
+        userInput = userName;
+        //Debug.Log(userInput);
+    }
     
-    bodyText.text = "Body :        " + currentBody.ToString();
-}
-public void rightBodyButton() {
-   
-    currentBody ++;
-      if (currentBody > imageBodyList.Length){
-        currentBody = 0;
+    public void saveButton() {
+        PlayerPrefs.SetInt("Head", currentHead);
+        PlayerPrefs.SetInt("Body", currentBody);
+        PlayerPrefs.SetString("PlayerName", userInput);
+        PlayerPrefs.Save();
+        //Debug.Log("Saved with UserName: " + userInput);
     }
-    body.sprite = imageBodyList[currentBody];
-  
-    bodyText.text = "Body :        " + currentBody.ToString();
-}
-public void leftHeadButton() {
-   
-    currentHead --;
-    if (currentHead < 0) {
-        currentHead = imageHeadList.Length -1;
-    }
-    head.sprite = imageHeadList[currentHead];
-    
-    headText.text = "Head :        " + currentHead.ToString();
-}
-public void rightHeadButton() {
-   
-    currentHead ++;
-    if (currentHead > imageHeadList.Length){
-        currentHead = 0;
-    }
-    head.sprite = imageHeadList[currentHead];
-    
-    headText.text = "Head :        " + currentHead.ToString();
-}
     // Start is called before the first frame update
     void Start()
     {
-        headText.text = "Head :        " + currentHead.ToString();
-        bodyText.text = "Body :        " + currentBody.ToString();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        //Reads from saved values in PlayerPrefs class
+        if (PlayerPrefs.HasKey("Head")) {
+            currentHead = PlayerPrefs.GetInt("Head");
+        }
+        else
+            currentHead = 0;
+        if (PlayerPrefs.HasKey("Body")) {
+            currentBody = PlayerPrefs.GetInt("Body");
+        }
+        else
+            currentBody = 0;
+        if (PlayerPrefs.HasKey("PlayerName")) {
+            userInput = PlayerPrefs.GetString("PlayerName");
+            enterNameText.text = userInput;
+            //Debug.Log("Loaded UserName: " + userInput);
+        }
+        else
+            userInput = "Player";
         
+
+        //Displays default value
+        head.sprite = imageHeadList[currentHead];
+        headText.text = "Head :        " + (currentHead + 1).ToString();
+        body.sprite = imageBodyList[currentBody];
+        bodyText.text = "Body :        " + (currentBody + 1).ToString();
     }
 }
