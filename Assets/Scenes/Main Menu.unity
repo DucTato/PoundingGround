@@ -613,7 +613,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 976969860}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -695,7 +695,7 @@ RectTransform:
   m_Children:
   - {fileID: 559725078}
   m_Father: {fileID: 976969860}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -731,7 +731,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: -945436258, guid: 5ad8127545dfb9a4ca9435132cd9a665, type: 3}
+    m_HighlightedSprite: {fileID: 724415819, guid: 5ad8127545dfb9a4ca9435132cd9a665, type: 3}
     m_PressedSprite: {fileID: 1771325551, guid: 5ad8127545dfb9a4ca9435132cd9a665, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -745,7 +745,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 189889108}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 976969863}
+        m_TargetAssemblyTypeName: CustomizedPanelController, Assembly-CSharp
+        m_MethodName: rightBodyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &189889108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1126,7 +1138,7 @@ RectTransform:
   m_Children:
   - {fileID: 103583795}
   m_Father: {fileID: 976969860}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1176,7 +1188,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 471572631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 976969863}
+        m_TargetAssemblyTypeName: CustomizedPanelController, Assembly-CSharp
+        m_MethodName: leftBodyButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &471572631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6758,13 +6782,14 @@ GameObject:
   - component: {fileID: 976969860}
   - component: {fileID: 976969862}
   - component: {fileID: 976969861}
+  - component: {fileID: 976969863}
   m_Layer: 5
   m_Name: Customize Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &976969860
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6777,13 +6802,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1831603091}
+  - {fileID: 1983611789}
   - {fileID: 2076305735}
   - {fileID: 1481660346}
   - {fileID: 471572629}
   - {fileID: 189889106}
   - {fileID: 163737087}
-  - {fileID: 1831603091}
-  - {fileID: 1983611789}
   - {fileID: 393734180}
   - {fileID: 154693700}
   - {fileID: 1335595937}
@@ -6834,6 +6859,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976969859}
   m_CullTransparentMesh: 1
+--- !u!114 &976969863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976969859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de93d4b4713a9ff4f831c67b30a43c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 1268384453}
+  body: {fileID: 784985223}
+  imageHeadList:
+  - {fileID: 21300000, guid: a35f76526955ba548bfe1021366b0488, type: 3}
+  - {fileID: 21300000, guid: 985b294043257c84795b6461e7eddd2b, type: 3}
+  - {fileID: 21300000, guid: 7527a8f1e193ef940980ec9f98caba5c, type: 3}
+  - {fileID: 21300000, guid: bd342af51176c5e45be88e2c8af3c5e0, type: 3}
+  - {fileID: 21300000, guid: f7ea263c96ec2274f874a3ca3c5061af, type: 3}
+  - {fileID: 21300000, guid: fb06bd3341d20f24a851119278e17715, type: 3}
+  - {fileID: 21300000, guid: 883ad06ae336cce48aa4890b1725835a, type: 3}
+  - {fileID: 21300000, guid: 4816c71d9f90ea546846ecd899a8f91e, type: 3}
+  - {fileID: 21300000, guid: 967b28fe813e0264b873cb5b3cc88eb3, type: 3}
+  - {fileID: 21300000, guid: f5c6517de94e0fb4f92a3882f5b306cf, type: 3}
+  - {fileID: 21300000, guid: f188c178af08c174ca921aebd7c9b6c3, type: 3}
+  - {fileID: 21300000, guid: 1828fb6d895c47043a3269b08af37399, type: 3}
+  - {fileID: 21300000, guid: 50e16ee0cdb599544b891f820754fa6b, type: 3}
+  - {fileID: 21300000, guid: 511b3d1d105412a468cbc17b2c533f6c, type: 3}
+  imageBodyList:
+  - {fileID: 21300000, guid: 004d4522bc0ce5744ba3acd578aff6b9, type: 3}
+  - {fileID: 21300000, guid: 580810baada6d56448a284df43614521, type: 3}
+  - {fileID: 21300000, guid: d077782f3f8559843b6db1beff90d3f7, type: 3}
+  headText: {fileID: 1831603092}
+  bodyText: {fileID: 1983611790}
+  currentHead: 0
+  currentBody: 0
 --- !u!1 &983556481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7707,7 +7769,7 @@ RectTransform:
   m_Children:
   - {fileID: 1481846033}
   m_Father: {fileID: 976969860}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7743,7 +7805,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 724415819, guid: 5ad8127545dfb9a4ca9435132cd9a665, type: 3}
     m_PressedSprite: {fileID: 1771325551, guid: 5ad8127545dfb9a4ca9435132cd9a665, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -7757,7 +7819,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1481660348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 976969863}
+        m_TargetAssemblyTypeName: CustomizedPanelController, Assembly-CSharp
+        m_MethodName: rightHeadButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1481660348
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8304,7 +8378,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 976969860}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8384,7 +8458,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 976969860}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8466,7 +8540,7 @@ RectTransform:
   m_Children:
   - {fileID: 983556482}
   m_Father: {fileID: 976969860}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8516,7 +8590,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2076305737}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 976969863}
+        m_TargetAssemblyTypeName: CustomizedPanelController, Assembly-CSharp
+        m_MethodName: leftHeadButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2076305737
 MonoBehaviour:
   m_ObjectHideFlags: 0
