@@ -6,6 +6,7 @@ public class Guns : MonoBehaviour
 {
     CameraController cameraRef;
     PlayerController playerRef;
+    UIController uiControlRef;
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
     [SerializeField] private GameObject bulletToFire, alternateState, ammoCasing;
@@ -15,10 +16,13 @@ public class Guns : MonoBehaviour
     [SerializeField] private bool hasCasing;
     [SerializeField] private float maxSpread, spreadMult, spreadRecovery;
     
+    public string weaponName;
+    public Sprite weaponUI;
+    public Animator animator;
+
 
 
     private ParticleSystem muzzleFX;
-    private Animator animator;
     public bool isAutomatic;
     public int currentAmmo;
     private float shotCounter, currSpread;
@@ -29,11 +33,12 @@ public class Guns : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentAmmo = magAmmo;
-        animator = GetComponent<Animator>();
+        
         muzzleFX = GetComponentInChildren<ParticleSystem>();
         cameraRef = CameraController.instance;
         playerRef = PlayerController.instance;
+        
+        
     }
 
     // Update is called once per frame
@@ -128,9 +133,10 @@ public class Guns : MonoBehaviour
         {
             shootPoint.rotation = transform.rotation * Quaternion.Euler(0f, 0f, Random.Range(0f, -currSpread) + 90f);
         }
-        // spawn vien dan 
+        // Spawn bullets 
         Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
         currentAmmo--;
+        updateUIAmmo();
         shotCounter = timeBetweenShots;
         if (hasCasing)
         {
@@ -140,6 +146,10 @@ public class Guns : MonoBehaviour
     private void onReloadStart()
     {
         isReady = false;
+    }
+    private void onUnholsterEnd()
+    {
+        isReady = true;
     }
     private void onReloadEnd()
     {
@@ -156,6 +166,34 @@ public class Guns : MonoBehaviour
         }
         currSpread = 0;
         shootPoint.rotation = Quaternion.Euler(0f, 0f, 90f);
+        updateUIAmmo();
         isReady = true;
+    }
+    private void OnEnable()
+    {
+        isReady = false;
+        uiControlRef = UIController.instance;
+        setUI();
+        animator = GetComponent<Animator>();
+        animator.SetTrigger("unholster");
+        animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+    }
+
+    private void setUI()
+    {
+        uiControlRef.currentWeapon.sprite = weaponUI;
+        uiControlRef.weaponName.text = weaponName;
+        updateUIAmmo();
+    }
+
+    private void updateUIAmmo()
+    {
+        uiControlRef.currentAmmo.text = currentAmmo + " / " + resAmmo;
+        if (currentAmmo == 0)
+        {
+            uiControlRef.isEmpty.gameObject.SetActive(true);
+        }
+        else
+            uiControlRef.isEmpty.gameObject.SetActive(false);
     }
 }

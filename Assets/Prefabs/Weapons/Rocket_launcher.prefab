@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 8990653292465246175}
   - component: {fileID: 1071655145851929743}
   m_Layer: 3
-  m_Name: Rocket_launcher
+  m_Name: Rocket_Launcher
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -513,11 +513,16 @@ MonoBehaviour:
   ammoCasing: {fileID: 0}
   shootPoint: {fileID: 8990653291084236175}
   reloadSpeedMult: 0.4
-  zoomInMax: 5
+  zoomInMax: 6
   hasAlternateState: 1
   hasCasing: 0
+  maxSpread: 0
+  spreadMult: 0
+  spreadRecovery: 0
+  weaponName: Rocket Launcher
+  weaponUI: {fileID: 21300000, guid: 7fb81e4aa1af85741a6660a8a588f001, type: 3}
   isAutomatic: 0
-  currentAmmo: 0
+  currentAmmo: 1
 --- !u!95 &1071655145851929743
 Animator:
   serializedVersion: 4

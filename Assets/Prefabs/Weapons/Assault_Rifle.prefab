@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3412265356935206430}
   - component: {fileID: 8986295760341794112}
   m_Layer: 3
-  m_Name: SMG
+  m_Name: Assault_Rifle
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,21 +47,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magAmmo: 30
-  resAmmo: 70
-  timeBetweenShots: 0.1
+  resAmmo: 90
+  timeBetweenShots: 0.2
   bulletToFire: {fileID: 4305575523733841318, guid: dd3f167eac86c574391970afe51cf645, type: 3}
   alternateState: {fileID: 0}
-  ammoCasing: {fileID: 466863614232638678, guid: 27c6116467d86394ca36b75c95ab58be, type: 3}
+  ammoCasing: {fileID: 466863614232638678, guid: 4db3f7c0e494647428cac0a5085cdd30, type: 3}
   shootPoint: {fileID: 3412265357065522483}
-  reloadSpeedMult: 0.88
-  zoomInMax: 6.2
+  reloadSpeedMult: 0.75
+  zoomInMax: 5.7
   hasAlternateState: 0
   hasCasing: 1
-  maxSpread: 20
-  spreadMult: 1.2
-  spreadRecovery: 1.8
-  weaponName: SMG
-  weaponUI: {fileID: 21300000, guid: a5d84093ce65a914cb6c6feaf0eeef27, type: 3}
+  maxSpread: 10
+  spreadMult: 1.15
+  spreadRecovery: 3
+  weaponName: Assault Rifle
+  weaponUI: {fileID: 21300000, guid: 0b9836050207b8b4fa9c4cb1dea649c2, type: 3}
   isAutomatic: 1
   currentAmmo: 30
 --- !u!95 &8986295760341794112
@@ -142,7 +142,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5799092997264471679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -191,7 +191,7 @@ SpriteRenderer:
   m_SortingLayerID: -462417837
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 392d2b86ddbc0c343a388349b5e61a17, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 66425216d0b92e1439b9379834386745, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 1

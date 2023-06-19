@@ -11,9 +11,12 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Animator anim;
     [SerializeField] private float moveSpeed, bodyRotation;
     [SerializeField] private Transform Head,Body,Legs;
+
+    public List<Guns> availGuns = new List<Guns>();
     public bool EPC = true;
     private Vector2 moveInput;
     private Quaternion rotationAngle;
+    private int currentGun;
 
     private void Awake()
     {
@@ -29,12 +32,13 @@ public class PlayerController : NetworkBehaviour
         else
         {
             EPC = false;
+            GetComponent<Rigidbody2D>().isKinematic = true;
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        //EPC = true;
+        
     }
 
     // Update is called once per frame
@@ -68,6 +72,35 @@ public class PlayerController : NetworkBehaviour
             {
                 anim.SetBool("isMoving", false);
             }
+
+            // Press Q to switch between current weapons (if more than 1 is available)
+            if (Input.GetKeyDown("q"))
+            {
+                if (availGuns.Count > 0)
+                {
+                    // Rebind the animator state so that it doesn't get stuck (in case it happens to be playing another animation)
+                    availGuns[currentGun].animator.Rebind();
+                    availGuns[currentGun].animator.Update(0f);
+                    // Switch gun
+                    currentGun++;
+                    if (currentGun >= availGuns.Count)
+                    {
+                        currentGun = 0;
+                    }
+                    SwitchWeapon();
+                }
+                else
+                    Debug.LogError("Player has no gun :v");
+            }
         }
+    }
+
+    public void SwitchWeapon()
+    {
+        foreach(Guns thegun in availGuns)
+        {
+            thegun.gameObject.SetActive(false);
+        }
+        availGuns[currentGun].gameObject.SetActive(true);
     }
 }

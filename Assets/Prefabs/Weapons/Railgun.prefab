@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3885091501450672119}
   - component: {fileID: 1093505882059655352}
   m_Layer: 3
-  m_Name: AWM-Gun
+  m_Name: Railgun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,11 +87,16 @@ MonoBehaviour:
   ammoCasing: {fileID: 466863614232638678, guid: 4db3f7c0e494647428cac0a5085cdd30, type: 3}
   shootPoint: {fileID: 3885091500205701354}
   reloadSpeedMult: 0.6
-  zoomInMax: 2
+  zoomInMax: 4.2
   hasAlternateState: 0
   hasCasing: 1
+  maxSpread: 0
+  spreadMult: 0
+  spreadRecovery: 0
+  weaponName: Plasma Railgun
+  weaponUI: {fileID: 21300000, guid: c68b4e5f0921cdf48a82ed5de662ca7c, type: 3}
   isAutomatic: 0
-  currentAmmo: 0
+  currentAmmo: 1
 --- !u!95 &1093505882059655352
 Animator:
   serializedVersion: 4
