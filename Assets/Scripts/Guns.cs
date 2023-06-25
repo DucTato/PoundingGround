@@ -1,45 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
+using FishNet.Object;
+using Unity.VisualScripting;
 using UnityEngine;
+using FishNet.Managing.Timing;
 
-public class Guns : MonoBehaviour
+public class Guns : NetworkBehaviour
 {
     CameraController cameraRef;
     PlayerController playerRef;
     UIController uiControlRef;
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
-    [SerializeField] private GameObject bulletToFire, alternateState, ammoCasing;
+    [SerializeField] private GameObject alternateState, ammoCasing;
     [SerializeField] private Transform shootPoint; 
     [SerializeField] private float reloadSpeedMult, zoomInMax;
     [SerializeField] private bool hasAlternateState;
     [SerializeField] private bool hasCasing;
     [SerializeField] private float maxSpread, spreadMult, spreadRecovery;
-    
+    [SerializeField] private BulletLogic bulletToFire;
     public string weaponName;
     public Sprite weaponUI;
     public Animator animator;
 
-
-
+    private NetworkObject currentUser;
     private ParticleSystem muzzleFX;
     public bool isAutomatic;
     public int currentAmmo;
     private float shotCounter, currSpread;
     private bool isReady = true;
-    
-    
-    
-    // Start is called before the first frame update
-    void Start()
+    private int currentUserID;
+
+    private const float MAX_PASSED_TIME = 0.3f;
+
+    public override void OnStartClient()
     {
-        
-        muzzleFX = GetComponentInChildren<ParticleSystem>();
-        cameraRef = CameraController.instance;
-        playerRef = PlayerController.instance;
-        
-        
+        base.OnStartClient();
+        if (base.IsOwner)
+        {
+            muzzleFX = GetComponentInChildren<ParticleSystem>();
+            cameraRef = CameraController.instance;
+            playerRef = PlayerController.instance;
+            currentUser = transform.root.gameObject.GetComponent<NetworkObject>();
+            currentUserID = transform.root.gameObject.GetInstanceID();
+        }
+        else
+        {
+            //GetComponent<PlayerSkin>().enabled = false;
+            return;
+        }
     }
+    // Start is called before the first frame update
+    //void Start()
+    //{
+        
+    //}
 
     // Update is called once per frame
     void Update()
@@ -56,7 +69,7 @@ public class Guns : MonoBehaviour
                 {
                     if (isAutomatic)
                     {
-                        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && currentAmmo > 0) // hoac la click chuot, hoac la giu chuot = Fire
+                        if ((Input.GetMouseButtonDown(0) || Input.GetMouseButton(0)) && currentAmmo > 0) // Hold-down or Click Mouse 1 to Fire
                         {
                             animator.SetTrigger("shotFired");
                         }
@@ -134,7 +147,13 @@ public class Guns : MonoBehaviour
             shootPoint.rotation = transform.rotation * Quaternion.Euler(0f, 0f, Random.Range(0f, -currSpread) + 90f);
         }
         // Spawn bullets 
-        Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
+        //GameObject bullet = Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
+        //bullet.GetComponent<BulletLogic>().attackerID = currentUserID;
+        if (!IsServer)
+        {
+           SpawnProjectile(0f);
+        }
+        ServerSpawnProjectile(base.TimeManager.Tick);
         currentAmmo--;
         updateUIAmmo();
         shotCounter = timeBetweenShots;
@@ -195,5 +214,33 @@ public class Guns : MonoBehaviour
         }
         else
             uiControlRef.isEmpty.gameObject.SetActive(false);
+        if (uiControlRef.currentAmmo.text != null)
+        {
+            uiControlRef.hasAmmo.gameObject.SetActive(true);
+        }
+    }
+    private void SpawnProjectile(float passedTime)
+    {     
+        BulletLogic pb = Instantiate(bulletToFire, shootPoint.position, shootPoint.rotation);
+        pb.Initialize(transform.up, passedTime, currentUserID);
+    }
+    [ServerRpc]
+    private void ServerSpawnProjectile(uint Tick)
+    {
+        Debug.Log(Tick);
+        
+        float passedTime = (float)base.TimeManager.TimePassed(Tick, false);
+        passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
+        Debug.Log(passedTime);
+        SpawnProjectile(passedTime);
+        ObserversSpawnProjectile(Tick);
+    }
+    [ObserversRpc(ExcludeOwner = true)]
+    private void ObserversSpawnProjectile(uint Tick)
+    {
+        Debug.Log("Observer Fired");
+        float passedTime = (float)base.TimeManager.TimePassed(Tick, false);
+        passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
+        SpawnProjectile(passedTime);
     }
 }

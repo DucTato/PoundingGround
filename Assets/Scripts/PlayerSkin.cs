@@ -18,7 +18,7 @@ public class PlayerSkin : NetworkBehaviour
             currHead = PlayerPrefs.GetInt("Head");
             currBody = PlayerPrefs.GetInt("Body");
             setPlayerSkin(currHead, currBody);
-            Debug.Log("Found PlayerPrefs parts");
+            //Debug.Log("Found PlayerPrefs parts");
         }
         else
         {

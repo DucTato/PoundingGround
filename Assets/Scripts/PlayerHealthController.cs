@@ -12,7 +12,7 @@ public class PlayerHealthController : MonoBehaviour
         uiControlRef = UIController.instance;
         currentHP = 100f;
         currentAP = 0f;
-        updateStatusUI();
+        UpdateStatusUI();
     }
 
     // Update is called once per frame
@@ -20,7 +20,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         
     }
-    public void damagePlayer(float damage, float armorMult)
+    public void DamagePlayer(float damage, float armorMult)
     {
         if (currentHP <= 0) 
         {
@@ -35,9 +35,9 @@ public class PlayerHealthController : MonoBehaviour
         {
             currentHP -= damage;
         }
-        updateStatusUI();
+        UpdateStatusUI();
     }
-    public void updateStatusUI()
+    public void UpdateStatusUI()
     {
         uiControlRef.healthBar.maxValue = 100f;
         uiControlRef.healthBar.value = currentHP;

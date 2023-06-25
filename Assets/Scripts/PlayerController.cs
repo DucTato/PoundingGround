@@ -4,14 +4,21 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Connection;
 
+
 public class PlayerController : NetworkBehaviour
 {
+    UIController uiRef;
     public static PlayerController instance;
     [SerializeField] private Rigidbody2D playerRB;
     [SerializeField] private Animator anim;
     [SerializeField] private float moveSpeed, bodyRotation;
     [SerializeField] private Transform Head,Body,Legs;
 
+    public float currentHealth, currentArmor;
+    
+    
+   
+    //
     public List<Guns> availGuns = new List<Guns>();
     public bool EPC = true;
     private Vector2 moveInput;
@@ -25,9 +32,19 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        if (base.IsServer)
+        {
+            PlayerManager.instance.players.Add(gameObject.GetInstanceID(), new PlayerManager.Player() { currentHealth = 100, currentArmor = 0, playerName = PlayerPrefs.GetString("PlayerName"), connection = GetComponent<NetworkObject>().Owner, playerObject = gameObject });
+            
+        }
         if (base.IsOwner)
         {
             CameraController.instance.target = transform;
+            uiRef = UIController.instance;
+            PlayerManager.instance.localClientID = gameObject.GetInstanceID();
+            currentArmor = 0;
+            currentHealth = 100;
+            LocalUICall();
         }
         else
         {
@@ -36,10 +53,10 @@ public class PlayerController : NetworkBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
+    //void Start()
+    //{
         
-    }
+    //}
 
     // Update is called once per frame
     void Update()
@@ -102,5 +119,20 @@ public class PlayerController : NetworkBehaviour
             thegun.gameObject.SetActive(false);
         }
         availGuns[currentGun].gameObject.SetActive(true);
+    }
+    public void LocalUICall()
+    {
+        
+        uiRef.healthBar.value = currentHealth;
+        uiRef.healthText.text = currentHealth.ToString();
+       
+        uiRef.armorBar.value = currentArmor;
+        uiRef.armorText.text = currentArmor.ToString();
+        if (currentArmor <= 0)
+        {
+            uiRef.armorBar.gameObject.SetActive(false);
+        }
+        else
+            uiRef.armorBar.gameObject.SetActive(true);
     }
 }
