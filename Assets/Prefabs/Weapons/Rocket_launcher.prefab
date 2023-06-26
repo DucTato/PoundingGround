@@ -435,6 +435,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8990653291084236175}
+  - component: {fileID: 381522218894984070}
   m_Layer: 3
   m_Name: shootPoint
   m_TagString: Weapon
@@ -459,6 +460,50 @@ Transform:
   m_Father: {fileID: 8555194278155289313}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &381522218894984070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990653291084236174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 6354542795490480062}
+  _networkObjectCache: {fileID: 6354542795490480062}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _useNetworkLod: 1
+  _interval: 1
+  _synchronizePosition: 0
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 0
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &8990653292465246174
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,10 +569,11 @@ MonoBehaviour:
   maxSpread: 0
   spreadMult: 0
   spreadRecovery: 0
-  bulletToFire: {fileID: 5336970841419898602, guid: 5f32422f27423ea4eb725b3832e7c0b8, type: 3}
+  bulletToFire: {fileID: -6754075544887961717, guid: 5f32422f27423ea4eb725b3832e7c0b8, type: 3}
   weaponName: Rocket Launcher
   weaponUI: {fileID: 21300000, guid: 7fb81e4aa1af85741a6660a8a588f001, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 1071655145851929743}
+  netAnimator: {fileID: 0}
   isAutomatic: 0
   currentAmmo: 1
 --- !u!95 &1071655145851929743
@@ -600,7 +646,7 @@ MonoBehaviour:
   _sendToOwner: 1
   _useNetworkLod: 1
   _interval: 1
-  _synchronizePosition: 1
+  _synchronizePosition: 0
   _positionSnapping:
     X: 0
     Y: 0
@@ -610,7 +656,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeScale: 1
+  _synchronizeScale: 0
   _scaleSnapping:
     X: 0
     Y: 0
@@ -634,18 +680,19 @@ MonoBehaviour:
   - {fileID: 8990653292465246175}
   - {fileID: -2364090891831995239}
   - {fileID: 5670664652726682736}
+  - {fileID: 381522218894984070}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 7
+  <PrefabId>k__BackingField: 4
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

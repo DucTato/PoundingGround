@@ -68,7 +68,8 @@ MonoBehaviour:
   bulletToFire: {fileID: 8536504396360572769, guid: dd3f167eac86c574391970afe51cf645, type: 3}
   weaponName: Pistol
   weaponUI: {fileID: 21300000, guid: c0f7b3ba1c46f0243a12d2e6a963e51d, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 6564532655620489692}
+  netAnimator: {fileID: 0}
   isAutomatic: 0
   currentAmmo: 12
 --- !u!95 &6564532655620489692
@@ -141,7 +142,7 @@ MonoBehaviour:
   _sendToOwner: 1
   _useNetworkLod: 1
   _interval: 1
-  _synchronizePosition: 1
+  _synchronizePosition: 0
   _positionSnapping:
     X: 0
     Y: 0
@@ -151,7 +152,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeScale: 1
+  _synchronizeScale: 0
   _scaleSnapping:
     X: 0
     Y: 0
@@ -175,18 +176,19 @@ MonoBehaviour:
   - {fileID: 4935765992770904367}
   - {fileID: 8088204813353469244}
   - {fileID: -5100130947519613508}
+  - {fileID: 6499102689588225215}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 5
+  <PrefabId>k__BackingField: 12
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -201,6 +203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4935765993751514056}
+  - component: {fileID: 6499102689588225215}
   m_Layer: 3
   m_Name: shootPoint
   m_TagString: Untagged
@@ -225,6 +228,50 @@ Transform:
   m_Father: {fileID: 6153422117511864692}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &6499102689588225215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4935765993751514055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: -6245409140730708171}
+  _networkObjectCache: {fileID: -6245409140730708171}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _useNetworkLod: 1
+  _interval: 1
+  _synchronizePosition: 0
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 0
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &8970183659379039744
 GameObject:
   m_ObjectHideFlags: 0

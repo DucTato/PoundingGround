@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Connection;
-
+using FishNet.Serializing;
+using Unity.VisualScripting;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -39,6 +40,8 @@ public class PlayerController : NetworkBehaviour
         }
         if (base.IsOwner)
         {
+            currentGun = 0;
+            SetOwnerShipGun();
             CameraController.instance.target = transform;
             uiRef = UIController.instance;
             PlayerManager.instance.localClientID = gameObject.GetInstanceID();
@@ -91,34 +94,49 @@ public class PlayerController : NetworkBehaviour
             }
 
             // Press Q to switch between current weapons (if more than 1 is available)
-            if (Input.GetKeyDown("q"))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                if (availGuns.Count > 0)
+                if (availGuns.Count > 1)
                 {
                     // Rebind the animator state so that it doesn't get stuck (in case it happens to be playing another animation)
                     availGuns[currentGun].animator.Rebind();
                     availGuns[currentGun].animator.Update(0f);
                     // Switch gun
-                    currentGun++;
-                    if (currentGun >= availGuns.Count)
-                    {
-                        currentGun = 0;
-                    }
+                    
                     SwitchWeapon();
                 }
-                else
-                    Debug.LogError("Player has no gun :v");
             }
         }
     }
-
+    [ServerRpc]
     public void SwitchWeapon()
     {
-        foreach(Guns thegun in availGuns)
+        currentGun++;
+        if (currentGun >= availGuns.Count)
+        {
+            currentGun = 0;
+        }
+        foreach (Guns thegun in availGuns)
         {
             thegun.gameObject.SetActive(false);
         }
         availGuns[currentGun].gameObject.SetActive(true);
+        ObserversSwitchWeapon();
+    }
+    [ObserversRpc(ExcludeOwner = true, ExcludeServer = true)]
+    private void ObserversSwitchWeapon()
+    {
+        currentGun++;
+        if (currentGun >= availGuns.Count)
+        {
+            currentGun = 0;
+        }
+        foreach (Guns thegun in availGuns)
+        {
+            thegun.gameObject.SetActive(false);
+        }
+        availGuns[currentGun].gameObject.SetActive(true);
+    
     }
     public void LocalUICall()
     {
@@ -135,4 +153,19 @@ public class PlayerController : NetworkBehaviour
         else
             uiRef.armorBar.gameObject.SetActive(true);
     }
+    [ServerRpc]
+    private void SetOwnerShipGun()
+    {
+        //foreach (Guns thegun in availGuns)
+        //{
+        //    thegun.gameObject.SetActive(true);
+        //    Debug.Log("Owner is: " + base.Owner);
+        //    thegun.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.Owner);
+        //    thegun.gameObject.SetActive(false);
+        //    Debug.Log(thegun.weaponName + " is done");
+        //}
+        //availGuns[currentGun].gameObject.SetActive(true);
+        availGuns[currentGun].GetComponent<NetworkObject>().GiveOwnership(base.Owner);
+    }
+
 }

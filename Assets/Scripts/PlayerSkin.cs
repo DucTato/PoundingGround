@@ -22,7 +22,7 @@ public class PlayerSkin : NetworkBehaviour
         }
         else
         {
-            //GetComponent<PlayerSkin>().enabled = false;
+            GetComponent<PlayerSkin>().enabled = false;
             return;
         }
     }

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3885091500205701354}
+  - component: {fileID: 1855642636645721904}
   m_Layer: 3
   m_Name: shootPoint
   m_TagString: Untagged
@@ -33,6 +34,50 @@ Transform:
   m_Father: {fileID: 498529783337841170}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1855642636645721904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885091500205701365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 1672361117648309949}
+  _networkObjectCache: {fileID: 1672361117648309949}
+  _componentConfiguration: 0
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _useNetworkLod: 0
+  _interval: 1
+  _synchronizePosition: 0
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 0
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &3885091501450672118
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,10 +143,11 @@ MonoBehaviour:
   maxSpread: 0
   spreadMult: 0
   spreadRecovery: 0
-  bulletToFire: {fileID: 2138046255621062280, guid: f373117a13253fe40b663468c5d3fc3c, type: 3}
+  bulletToFire: {fileID: -8193503711574118660, guid: f373117a13253fe40b663468c5d3fc3c, type: 3}
   weaponName: Plasma Railgun
   weaponUI: {fileID: 21300000, guid: c68b4e5f0921cdf48a82ed5de662ca7c, type: 3}
-  animator: {fileID: 0}
+  animator: {fileID: 1093505882059655352}
+  netAnimator: {fileID: 0}
   isAutomatic: 0
   currentAmmo: 1
 --- !u!95 &1093505882059655352
@@ -174,7 +220,7 @@ MonoBehaviour:
   _sendToOwner: 1
   _useNetworkLod: 1
   _interval: 1
-  _synchronizePosition: 1
+  _synchronizePosition: 0
   _positionSnapping:
     X: 0
     Y: 0
@@ -184,7 +230,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
-  _synchronizeScale: 1
+  _synchronizeScale: 0
   _scaleSnapping:
     X: 0
     Y: 0
@@ -208,18 +254,19 @@ MonoBehaviour:
   - {fileID: 3885091501450672119}
   - {fileID: 7121440854783707225}
   - {fileID: 1919488026480449728}
+  - {fileID: 1855642636645721904}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+    LocalScale: {x: 0.722216, y: 0.90277, z: 0.90277}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 6
+  <PrefabId>k__BackingField: 13
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
