@@ -498,7 +498,7 @@ MonoBehaviour:
   _rotationSnapping:
     X: 0
     Y: 0
-    Z: 0
+    Z: 1
   _synchronizeScale: 0
   _scaleSnapping:
     X: 0
@@ -655,7 +655,7 @@ MonoBehaviour:
   _rotationSnapping:
     X: 0
     Y: 0
-    Z: 0
+    Z: 1
   _synchronizeScale: 0
   _scaleSnapping:
     X: 0
@@ -692,7 +692,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 2
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0

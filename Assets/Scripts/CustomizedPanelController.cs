@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 public class CustomizedPanelController : MonoBehaviour
 {
-    [SerializeField] private Image head, body;
+    [SerializeField] private Image head, body, marker;
     [SerializeField] private Sprite[] imageHeadList;
     [SerializeField] private Sprite[] imageBodyList;
     [SerializeField] private Text headText, bodyText;
     [SerializeField] private InputField enterNameText;
-    private int currentHead, currentBody;
+    [SerializeField] private Toggle markerToggle;
+    private int currentHead, currentBody, currentMarker;
     private string userInput;
 
 
@@ -70,13 +71,32 @@ public class CustomizedPanelController : MonoBehaviour
         PlayerPrefs.SetInt("Head", currentHead);
         PlayerPrefs.SetInt("Body", currentBody);
         PlayerPrefs.SetString("PlayerName", userInput);
+        PlayerPrefs.SetInt("HasMarker", currentMarker);
         PlayerPrefs.Save();
-        //Debug.Log("Saved with UserName: " + userInput);
+        //Debug.Log("Saved with marker: " + PlayerPrefs.GetInt("HasMarker"));
+    }
+    public void toggleMarker() { 
+        if (marker.IsActive()) {
+            marker.gameObject.SetActive(false);
+            currentMarker = 0;
+        }
+
+        else {
+            marker.gameObject.SetActive(true);
+            currentMarker = 1;
+        }
     }
     // Start is called before the first frame update
     void Start()
     {
         //Reads from saved values in PlayerPrefs class
+        if (PlayerPrefs.HasKey("HasMarker")) {
+            currentMarker = PlayerPrefs.GetInt("HasMarker");
+        }
+        else {
+            currentMarker = 0;  
+        }
+        //Debug.Log("Marker: " + PlayerPrefs.GetInt("HasMarker"));
         if (PlayerPrefs.HasKey("Head")) {
             currentHead = PlayerPrefs.GetInt("Head");
         }
@@ -101,5 +121,7 @@ public class CustomizedPanelController : MonoBehaviour
         headText.text = "Head :        " + currentHead.ToString();
         body.sprite = imageBodyList[currentBody];
         bodyText.text = "Body :        " + currentBody.ToString();
+        markerToggle.isOn = currentMarker == 1;
+        marker.gameObject.SetActive(markerToggle.isOn);
     }
 }

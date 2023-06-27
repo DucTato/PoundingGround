@@ -51,7 +51,8 @@ public class Guns : NetworkBehaviour
         else
         {
             muzzleFX = GetComponentInChildren<ParticleSystem>();
-            GetComponent<Guns>().enabled = false;
+            currentUserID = transform.root.gameObject.GetInstanceID();
+            //GetComponent<Guns>().enabled = false;
             return;
         }
     }
@@ -109,6 +110,8 @@ public class Guns : NetworkBehaviour
                 }
             }
         }
+        if (cameraRef!= null)
+        {
             if (Input.GetMouseButton(1))
             {
                 float currentZoom = cameraRef.mainCamera.orthographicSize;
@@ -119,6 +122,8 @@ public class Guns : NetworkBehaviour
                 float currentZoom = cameraRef.mainCamera.orthographicSize;
                 cameraRef.mainCamera.orthographicSize = Mathf.MoveTowards(currentZoom, 13f, Time.deltaTime * 10);
             }
+        }
+            
         
         // Update the visual state of the current gun
         if (hasAlternateState)

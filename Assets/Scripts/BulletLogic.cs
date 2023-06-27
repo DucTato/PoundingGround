@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
+using FishNet;
 
 public class BulletLogic : MonoBehaviour
 {
-    private Rigidbody2D bulletRB; // Declaration
-    [SerializeField] private float moveSpeed, damageToGive, ignoreArmorMult;
+    //private Rigidbody2D bulletRB; // Declaration
+    [SerializeField] private float moveSpeed, damageToGive;
+    [SerializeField]
+    [Tooltip("Armor Multiplier 0 = Ignore armor, 1 = armor blocks off damage as much as possible")]
+    private float ignoreArmorMult;
     [SerializeField] private bool isExplosive = false;
     [SerializeField] private GameObject Explosion;
     [SerializeField] private int targetID;
@@ -18,7 +22,7 @@ public class BulletLogic : MonoBehaviour
     void Start()
     {
         
-        bulletRB = GetComponent<Rigidbody2D>(); // Value
+       //bulletRB = GetComponent<Rigidbody2D>(); // Value
         
     }
 
@@ -35,13 +39,21 @@ public class BulletLogic : MonoBehaviour
             Instantiate(Explosion, transform.position, transform.rotation);
         }
         
-
-        if (collision.tag == "Player")
+        if (InstanceFinder.IsServer)
         {
-            //HitPlayer(collision.transform.gameObject);
+            PlayerController pc = collision.GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                Debug.Log("Target's ID is: " + pc.gameObject.GetInstanceID());
+                PlayerManager.instance.DamagePlayer(attackerID, damageToGive, ignoreArmorMult, pc.gameObject.GetInstanceID());
+            }
         }
+        //if (collision.tag == "Player")
+        //{
+        //    HitPlayer(collision.transform.gameObject);
+        //}
         Destroy(gameObject);
-        //base.Despawn(gameObject);
+        
     }
     //[ServerRpc(RequireOwnership = false)]
     //public void HitPlayer(GameObject playerHit)

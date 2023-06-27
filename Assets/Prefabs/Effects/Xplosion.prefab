@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 751be21a655c2d5489cd2e6643255ea1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageToGive: 0
+  damageToGive: 50
 --- !u!198 &-703673543989846447
 ParticleSystem:
   m_ObjectHideFlags: 0

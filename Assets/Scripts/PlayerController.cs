@@ -19,13 +19,12 @@ public class PlayerController : NetworkBehaviour
     
     
    
-    //
+    
     public List<Guns> availGuns = new List<Guns>();
     public bool EPC = true;
     private Vector2 moveInput;
     private Quaternion rotationAngle;
     private int currentGun;
-
     private void Awake()
     {
         instance = this;
@@ -33,11 +32,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        if (base.IsServer)
-        {
-            PlayerManager.instance.players.Add(gameObject.GetInstanceID(), new PlayerManager.Player() { currentHealth = 100, currentArmor = 0, playerName = PlayerPrefs.GetString("PlayerName"), connection = GetComponent<NetworkObject>().Owner, playerObject = gameObject });
-            
-        }
+        
         if (base.IsOwner)
         {
             currentGun = 0;
@@ -54,6 +49,16 @@ public class PlayerController : NetworkBehaviour
             EPC = false;
             GetComponent<Rigidbody2D>().isKinematic = true;
         }
+        if (base.IsServer)
+        {
+            PlayerManager.instance.players.Add(gameObject.GetInstanceID(), new PlayerManager.Player() { currentHealth = 100, currentArmor = 0, playerName = GetComponent<PlayerSkin>().currPlayerName, connection = GetComponent<NetworkObject>().Owner, playerObject = gameObject });
+            Debug.Log("Added a Player to Dictionary");
+            //foreach (KeyValuePair<int,PlayerManager.Player> player in PlayerManager.instance.players) 
+            //{
+            //    player.Value.playerName = player.Value.playerObject.GetComponent<PlayerSkin>().currPlayerName;
+            //}
+        }
+
     }
     // Start is called before the first frame update
     //void Start()

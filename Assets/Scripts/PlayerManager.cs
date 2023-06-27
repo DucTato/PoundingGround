@@ -28,19 +28,20 @@ public class PlayerManager : NetworkBehaviour
     {
         instance = this;
     }
-    
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetKeyUp(KeyCode.Space))
-    //    {
-    //        players[localClientID].currentHealth--;
-    //        Debug.Log(players[localClientID].currentHealth);
-    //        Debug.Log(players[localClientID].currentArmor);
-    //        Debug.Log(players[localClientID].playerName);
-    //    }
 
-    //}
+    //Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            Debug.Log(players.Count);
+            foreach (int keys in players.Keys)
+            {
+                Debug.Log(keys);
+            }
+        }
+
+    }
     public void DamagePlayer(int attackerID, float damage, float armorMult, int targetID)
     {
         if (!base.IsServer)
@@ -56,7 +57,8 @@ public class PlayerManager : NetworkBehaviour
         {
             players[targetID].currentHealth -= damage;
         }
-        UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, targetID);
+
+        UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, players[targetID].currentHealth, players[targetID].currentArmor);
         if (players[targetID].currentHealth <= 0)
         {
             PlayerSlain(attackerID, targetID);
@@ -64,17 +66,21 @@ public class PlayerManager : NetworkBehaviour
     }
     public void PlayerSlain(int attackerID, int targetID)
     {
+        Debug.Log("Attacker ID: " + attackerID + "/ TargetID: " + targetID);
         // Set text;
-        print("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
+        
         players[attackerID].score++;
+        players[targetID].currentHealth = 100;
+        UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, 100, 0);
+        print("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
     }
    
     [TargetRpc]
-    void UpdateLocalUI(NetworkConnection connection, GameObject player,int ID)
+    void UpdateLocalUI(NetworkConnection connection, GameObject player, float Health, float Armor)
     {
         PlayerController script = player.GetComponent<PlayerController>();
-        script.currentHealth = players[ID].currentHealth;
-        script.currentArmor = players[ID].currentArmor;
+        script.currentHealth = Health;
+        script.currentArmor = Armor;
         script.LocalUICall();
     }
 }

@@ -8,36 +8,54 @@ public class PlayerSkin : NetworkBehaviour
 {
     [SerializeField] private Sprite[] Heads, Bodies;
     [SerializeField] private SpriteRenderer HeadSR, BodySR;
+    [SerializeField] private GameObject Marker;
+    public string currPlayerName;
     
     public int currHead, currBody;
     public override void OnStartClient()
     {
         base.OnStartClient();
+        if (PlayerPrefs.HasKey("PlayerName"))
+        {
+            currPlayerName = PlayerPrefs.GetString("PlayerName");
+        }
+        else
+            currPlayerName = "Player";
+        currHead = PlayerPrefs.GetInt("Head");
+        currBody = PlayerPrefs.GetInt("Body");
+        if (PlayerPrefs.HasKey("HasMarker"))
+        {
+            Marker.gameObject.SetActive(PlayerPrefs.GetInt("HasMarker") == 1);
+        }
+        else
+        {
+            Marker.gameObject.SetActive(false);
+        }
         if (base.IsOwner)
         {
-            currHead = PlayerPrefs.GetInt("Head");
-            currBody = PlayerPrefs.GetInt("Body");
-            setPlayerSkin(currHead, currBody);
+            setPlayerSkin(currHead, currBody, currPlayerName);
             //Debug.Log("Found PlayerPrefs parts");
         }
         else
         {
-            GetComponent<PlayerSkin>().enabled = false;
+            //GetComponent<PlayerSkin>().enabled = false;
             return;
         }
     }
 
     [ServerRpc]
-    private void setPlayerSkin(int headPart, int bodyPart)
+    private void setPlayerSkin(int headPart, int bodyPart, string Name)
     {
         HeadSR.sprite = Heads[headPart];
         BodySR.sprite = Bodies[bodyPart];
-        setPlayerSkinObservers(headPart, bodyPart);
+        currPlayerName = Name;
+        setPlayerSkinObservers(headPart, bodyPart, Name);
     }
     [ObserversRpc(ExcludeOwner = false, ExcludeServer = true, BufferLast = true)]
-    private void setPlayerSkinObservers(int headPart, int bodyPart)
+    private void setPlayerSkinObservers(int headPart, int bodyPart, string Name)
     {
         HeadSR.sprite = Heads[headPart];
         BodySR.sprite = Bodies[bodyPart];
+        currPlayerName = Name;
     }
 }
