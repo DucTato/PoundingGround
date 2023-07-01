@@ -53,10 +53,7 @@ public class PlayerController : NetworkBehaviour
         {
             PlayerManager.instance.players.Add(gameObject.GetInstanceID(), new PlayerManager.Player() { currentHealth = 100, currentArmor = 0, playerName = GetComponent<PlayerSkin>().currPlayerName, connection = GetComponent<NetworkObject>().Owner, playerObject = gameObject });
             Debug.Log("Added a Player to Dictionary");
-            //foreach (KeyValuePair<int,PlayerManager.Player> player in PlayerManager.instance.players) 
-            //{
-            //    player.Value.playerName = player.Value.playerObject.GetComponent<PlayerSkin>().currPlayerName;
-            //}
+            
         }
 
     }
@@ -157,6 +154,11 @@ public class PlayerController : NetworkBehaviour
         }
         else
             uiRef.armorBar.gameObject.SetActive(true);
+    }
+    public void LocalKillFeedCall(string Feed)
+    {
+        Debug.Log("Local Kill Feed called: " + Feed);
+        uiRef.NewKill(Feed);
     }
     [ServerRpc]
     private void SetOwnerShipGun()

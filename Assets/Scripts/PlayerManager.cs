@@ -4,11 +4,13 @@ using UnityEngine;
 using FishNet.Object;
 using FishNet.Connection;
 using FishNet.Transporting;
+using FishNet;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerManager : NetworkBehaviour
 {
     public static PlayerManager instance;
-    //UIController uicontrollerRef;
+    //UIController uicontrollerRef = UIController.instance;
 
     // Create Dictionary of all the players in the current Scene
     public Dictionary<int, Player> players = new Dictionary<int, Player>();
@@ -37,7 +39,8 @@ public class PlayerManager : NetworkBehaviour
             Debug.Log(players.Count);
             foreach (int keys in players.Keys)
             {
-                Debug.Log(keys);
+                Debug.Log(keys + ": " + players[keys].playerName);
+                UpdateKillFeedText("I killed you, biatch");
             }
         }
 
@@ -72,15 +75,25 @@ public class PlayerManager : NetworkBehaviour
         players[attackerID].score++;
         players[targetID].currentHealth = 100;
         UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, 100, 0);
-        print("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
+        //print("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
+        UpdateKillFeedText("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
     }
    
     [TargetRpc]
-    void UpdateLocalUI(NetworkConnection connection, GameObject player, float Health, float Armor)
+    public void UpdateLocalUI(NetworkConnection connection, GameObject player, float Health, float Armor)
     {
         PlayerController script = player.GetComponent<PlayerController>();
         script.currentHealth = Health;
         script.currentArmor = Armor;
         script.LocalUICall();
+    }
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = false)]
+    public void UpdateKillFeedText(string Feed)
+    {
+        
+        PlayerController script = ClientManager.Connection.FirstObject.GetComponent<PlayerController>();
+        Debug.Log(script);
+        script.LocalKillFeedCall(Feed);
+        
     }
 }

@@ -41,6 +41,14 @@ public class PlayerSkin : NetworkBehaviour
             //GetComponent<PlayerSkin>().enabled = false;
             return;
         }
+        //if (base.IsServer)
+        //{
+        //    foreach (KeyValuePair<int, PlayerManager.Player> player in PlayerManager.instance.players)
+        //    {
+        //        player.Value.playerName = currPlayerName;
+        //    }
+        //}
+        UpdatePlayerName(currPlayerName);
     }
 
     [ServerRpc]
@@ -57,5 +65,10 @@ public class PlayerSkin : NetworkBehaviour
         HeadSR.sprite = Heads[headPart];
         BodySR.sprite = Bodies[bodyPart];
         currPlayerName = Name;
+    }
+    [ServerRpc]
+    private void UpdatePlayerName(string Name)
+    {
+        PlayerManager.instance.players[transform.root.gameObject.GetInstanceID()].playerName = Name;
     }
 }

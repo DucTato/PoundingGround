@@ -12,6 +12,8 @@ public class UIController : MonoBehaviour
     public Image currentWeapon, isEmpty, hasAmmo;
     public Text weaponName, currentAmmo, healthText, armorText;
     public Slider healthBar, armorBar;
+    public GameObject KillFeedComponent;
+    private KillFeedController killFeed;
     private void Awake()
     {
         instance = this;
@@ -21,11 +23,16 @@ public class UIController : MonoBehaviour
     {
         healthBar.maxValue = 100f;
         armorBar.maxValue = 100f;
+        killFeed = KillFeedComponent.GetComponent<KillFeedController>();
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
+    //}
+    public void NewKill(string Feed)
+    {
+        killFeed.NewKillFeed(Feed);
     }
 }
