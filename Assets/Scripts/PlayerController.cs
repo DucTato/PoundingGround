@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
-using FishNet.Connection;
-using FishNet.Serializing;
-using Unity.VisualScripting;
+
 
 public class PlayerController : NetworkBehaviour
 {
@@ -43,6 +41,7 @@ public class PlayerController : NetworkBehaviour
             currentArmor = 0;
             currentHealth = 100;
             LocalUICall();
+            LocalScoreUI(0);
         }
         else
         {
@@ -159,6 +158,12 @@ public class PlayerController : NetworkBehaviour
     {
         Debug.Log("Local Kill Feed called: " + Feed);
         uiRef.NewKill(Feed);
+    }
+
+    public void LocalScoreUI(int Score) 
+    {
+        uiRef.progressBar.value = Score;
+        uiRef.progressText.text = Score.ToString();
     }
     [ServerRpc]
     private void SetOwnerShipGun()

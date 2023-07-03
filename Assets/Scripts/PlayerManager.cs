@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Connection;
-using FishNet.Transporting;
 using FishNet;
-using static UnityEngine.GraphicsBuffer;
+using FishNet.Object.Synchronizing;
 
 public class PlayerManager : NetworkBehaviour
 {
@@ -14,8 +12,12 @@ public class PlayerManager : NetworkBehaviour
 
     // Create Dictionary of all the players in the current Scene
     public Dictionary<int, Player> players = new Dictionary<int, Player>();
-
+    public Transform[] spawnPoints;
+    public GameObject randomPickups;
     public int localClientID;
+    public BoxCollider2D[] spawners;
+    private int maxScore = 0;
+   
     public class Player
     {
         public NetworkConnection connection;
@@ -40,10 +42,11 @@ public class PlayerManager : NetworkBehaviour
             foreach (int keys in players.Keys)
             {
                 Debug.Log(keys + ": " + players[keys].playerName);
-                UpdateKillFeedText("I killed you, biatch");
+               
             }
+            
+            SpawnRandomPickups(Random.Range(0, 4));
         }
-
     }
     public void DamagePlayer(int attackerID, float damage, float armorMult, int targetID)
     {
@@ -70,13 +73,17 @@ public class PlayerManager : NetworkBehaviour
     public void PlayerSlain(int attackerID, int targetID)
     {
         Debug.Log("Attacker ID: " + attackerID + "/ TargetID: " + targetID);
-        // Set text;
+        
         
         players[attackerID].score++;
         players[targetID].currentHealth = 100;
         UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, 100, 0);
-        //print("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
-        UpdateKillFeedText("Player " + players[attackerID].playerName + " killed " + players[targetID].playerName);
+        RespawnPlayer(players[targetID].connection, players[targetID].playerObject, Random.Range(0, spawnPoints.Length));
+        if (players[attackerID].score >= maxScore)
+        {
+            maxScore = players[attackerID].score;
+        }
+        UpdateKillFeedText(players[attackerID].playerName + "  fragged  " + players[targetID].playerName, maxScore);
     }
    
     [TargetRpc]
@@ -87,13 +94,33 @@ public class PlayerManager : NetworkBehaviour
         script.currentArmor = Armor;
         script.LocalUICall();
     }
-    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = false)]
-    public void UpdateKillFeedText(string Feed)
+    [TargetRpc]
+    public void RespawnPlayer(NetworkConnection connection, GameObject player, int spawn)
     {
-        
+        player.transform.position = spawnPoints[spawn].position;
+    }
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
+    public void UpdateKillFeedText(string Feed, int Score)
+    {
         PlayerController script = ClientManager.Connection.FirstObject.GetComponent<PlayerController>();
         Debug.Log(script);
         script.LocalKillFeedCall(Feed);
-        
+        script.LocalScoreUI(Score);
     }
+    [ObserversRpc(ExcludeOwner = true, ExcludeServer = false, BufferLast = true)]
+    public void SpawnRandomPickups(int rarity)
+    {
+        // Get the spawners' locations randomly
+        int chosenSpawner = Random.Range(0, spawners.Length);
+        // Inside the chosen spawner, spawn the pick ups randomly
+        float randomX = Random.Range(spawners[chosenSpawner].bounds.min.x, spawners[chosenSpawner].bounds.max.x);
+        float randomY = Random.Range(spawners[chosenSpawner].bounds.min.y, spawners[chosenSpawner].bounds.max.y);
+        Vector2 randomPos = new Vector2(randomX, randomY);
+        // Instantiate the pick up and then spawn it over the Network
+        GameObject newPickUP = Instantiate(randomPickups, randomPos, Quaternion.identity);
+        newPickUP.GetComponent<RandomPickUps>().rarityType = (RandomPickUps.Rarity)rarity;
+        InstanceFinder.ServerManager.Spawn(newPickUP);
+    }
+
+    //public void ()
 }
