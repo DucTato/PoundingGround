@@ -145,7 +145,7 @@ MonoBehaviour:
   - {x: 0.44969225, y: -0.30184543, z: 0}
   m_ShapePathHash: 1772769853
   m_Mesh: {fileID: 0}
-  m_InstanceId: 46352
+  m_InstanceId: 47452
 --- !u!114 &8790291967662366121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,9 +297,12 @@ MonoBehaviour:
   Legs: {fileID: 8629245350855424098}
   currentHealth: 0
   currentArmor: 0
+  gunPoint: {fileID: 8629245350111380678}
   availGuns:
   - {fileID: 8839234073103279135}
+  currentUsedGun: {fileID: 0}
   EPC: 1
+  currentGun: 0
 --- !u!58 &7146245495553424401
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -353,6 +356,7 @@ MonoBehaviour:
   HeadSR: {fileID: 8629245351281662625}
   BodySR: {fileID: 8629245350439504942}
   Marker: {fileID: 7129761267752738173}
+  currPlayerName: 
   currHead: 0
   currBody: 0
 --- !u!114 &186993062013997947

@@ -15,8 +15,10 @@ public class RandomPickUps : NetworkBehaviour
         Legendary = 3
     }
     [SerializeField] private Sprite[] raritySprite;
+    [SerializeField] private GameObject[] commons, uncommons, exotics, legendaries;
     private Animator anim;
     private SpriteRenderer currentSR;
+
     [SyncVar]
     public Rarity rarityType;
     // Start is called before the first frame update
@@ -38,15 +40,28 @@ public class RandomPickUps : NetworkBehaviour
         {
             PlayerController pc = collision.GetComponent<PlayerController>();
             if (pc != null)
-            {
-                Debug.Log("Picked upper's ID is: " + pc.gameObject.GetInstanceID());
-                //PlayerManager.instance.DamagePlayer(attackerID, damageToGive, ignoreArmorMult, pc.gameObject.GetInstanceID());
-            }
             anim.SetBool("isOpened", true);
         }
     }
     private void BeingOpened()
     {
+        GameObject drop = null;
+        switch (rarityType)
+        {
+            case Rarity.Common:
+                drop = Instantiate(commons[Random.Range(0, commons.Length)], transform.position, transform.rotation);
+                break;
+            case Rarity.Uncommon:
+                drop = Instantiate(uncommons[Random.Range(0, uncommons.Length)], transform.position, transform.rotation);
+                break;
+            case Rarity.Exotic:
+                drop = Instantiate(exotics[Random.Range(0, exotics.Length)], transform.position, transform.rotation);
+                break;
+            case Rarity.Legendary:
+                drop = Instantiate(legendaries[Random.Range(0, legendaries.Length)], transform.position, transform.rotation);
+                break;
+        }
+        InstanceFinder.ServerManager.Spawn(drop);
         InstanceFinder.ServerManager.Despawn(gameObject);
     }
 }

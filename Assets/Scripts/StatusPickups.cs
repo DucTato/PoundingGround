@@ -13,7 +13,9 @@ public class StatusPickups : NetworkBehaviour
         Armor = 2
     }
     public StatusType Type;
+    [SerializeField] float armorPoint, healAmount;
     private Animator anim;
+    private PlayerController touchedPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +35,8 @@ public class StatusPickups : NetworkBehaviour
             if (pc != null)
             {
                 Debug.Log("Picked upper's ID is: " + pc.gameObject.GetInstanceID());
-                //PlayerManager.instance.DamagePlayer(attackerID, damageToGive, ignoreArmorMult, pc.gameObject.GetInstanceID());
+                touchedPlayer = pc;
+                
             }
             anim.SetBool("isOpened", true);
         }
@@ -43,11 +46,14 @@ public class StatusPickups : NetworkBehaviour
         switch (Type)
         {
             case StatusType.Ammo:
+                PlayerManager.instance.PlayerAddAmmo(touchedPlayer.gameObject.GetInstanceID());
             break;
             case StatusType.Health:
-            break;
+                PlayerManager.instance.ReplenishPlayer(25, 0, touchedPlayer.gameObject.GetInstanceID());
+                break;
             case StatusType.Armor:
-            break;
+                PlayerManager.instance.ReplenishPlayer(0, 100, touchedPlayer.gameObject.GetInstanceID());
+                break;
         }
         InstanceFinder.ServerManager.Despawn(gameObject);
     }

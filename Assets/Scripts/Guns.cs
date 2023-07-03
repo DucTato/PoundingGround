@@ -6,7 +6,7 @@ using FishNet.Component.Animating;
 public class Guns : NetworkBehaviour
 {
     CameraController cameraRef;
-    PlayerController playerRef;
+    //PlayerController playerRef;
     UIController uiControlRef;
     public int magAmmo, resAmmo; // Magazine ammo and Max ammo
     [SerializeField] private float timeBetweenShots;
@@ -158,7 +158,7 @@ public class Guns : NetworkBehaviour
             // Spawn bullets 
             if (!IsServer)
             {
-                    SpawnProjectile(0f); // Spawns a local Projectile
+                SpawnProjectile(0f); // Spawns a local Projectile
             }
             ServerSpawnProjectile(base.TimeManager.Tick);
             currentAmmo--;
@@ -263,5 +263,10 @@ public class Guns : NetworkBehaviour
         float passedTime = (float)base.TimeManager.TimePassed(Tick, false);
         passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
         SpawnProjectile(passedTime);
+    }
+    public void ReplenishAmmo()
+    {
+        resAmmo += 2 * magAmmo;
+        updateUIAmmo();
     }
 }

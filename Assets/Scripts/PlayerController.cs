@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
-
+using FishNet.Object.Synchronizing;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -14,15 +14,17 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Transform Head,Body,Legs;
 
     public float currentHealth, currentArmor;
-    
+    public Transform gunPoint;
     
    
     
     public List<Guns> availGuns = new List<Guns>();
+    public Guns currentUsedGun;
     public bool EPC = true;
     private Vector2 moveInput;
     private Quaternion rotationAngle;
-    private int currentGun;
+    [SyncVar]
+    public int currentGun;
     private void Awake()
     {
         instance = this;
@@ -35,6 +37,7 @@ public class PlayerController : NetworkBehaviour
         {
             currentGun = 0;
             SetOwnerShipGun();
+            currentUsedGun = availGuns[currentGun].GetComponent<Guns>();
             CameraController.instance.target = transform;
             uiRef = UIController.instance;
             PlayerManager.instance.localClientID = gameObject.GetInstanceID();

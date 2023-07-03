@@ -85,7 +85,12 @@ public class PlayerManager : NetworkBehaviour
         }
         UpdateKillFeedText(players[attackerID].playerName + "  fragged  " + players[targetID].playerName, maxScore);
     }
-   
+    [TargetRpc]
+    public void AddAmmo(NetworkConnection connection, GameObject player)
+    {
+        PlayerController script = player.GetComponent<PlayerController>();
+        script.currentUsedGun.ReplenishAmmo();
+    }
     [TargetRpc]
     public void UpdateLocalUI(NetworkConnection connection, GameObject player, float Health, float Armor)
     {
@@ -122,5 +127,18 @@ public class PlayerManager : NetworkBehaviour
         InstanceFinder.ServerManager.Spawn(newPickUP);
     }
 
-    //public void ()
+    public void ReplenishPlayer(float healAmount, float armorPoint, int targetID)
+    {
+        players[targetID].currentHealth += healAmount;
+        if (players[targetID].currentHealth > 100) 
+        {
+            players[targetID].currentHealth = 100;
+        }
+        players[targetID].currentArmor = armorPoint;
+        UpdateLocalUI(players[targetID].connection, players[targetID].playerObject, players[targetID].currentHealth, players[targetID].currentArmor);
+    }
+    public void PlayerAddAmmo(int targetID)
+    {
+        AddAmmo(players[targetID].connection, players[targetID].playerObject);
+    }
 }

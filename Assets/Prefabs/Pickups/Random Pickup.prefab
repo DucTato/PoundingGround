@@ -210,6 +210,13 @@ MonoBehaviour:
   - {fileID: 1212377851, guid: df7416519127dc3498ebd2f11f26319e, type: 3}
   - {fileID: -2002037461, guid: df7416519127dc3498ebd2f11f26319e, type: 3}
   - {fileID: -1368160187, guid: df7416519127dc3498ebd2f11f26319e, type: 3}
+  commons:
+  - {fileID: 2864992246454102449, guid: 5a5ca1f4f2cf6384e86b65dbb346a19c, type: 3}
+  - {fileID: 2864992246454102449, guid: 8ea560b5b2e987c44b08acb81ec07e93, type: 3}
+  - {fileID: 6353529929846863243, guid: cd87b53a8589dd9428b9ad1c3da6fa83, type: 3}
+  uncommons: []
+  exotics: []
+  legendaries: []
   rarityType: 3
 --- !u!114 &8709266266476920731
 MonoBehaviour:

@@ -101,7 +101,7 @@ Animator:
   m_GameObject: {fileID: 2864992246454102449}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: deaeca92534ab6c45a4400ccb8cd1288, type: 2}
+  m_Controller: {fileID: 9100000, guid: 68eb47614495e4649ad90568b6c92702, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 3390449214080731907}
   - {fileID: 6790729481201201856}
+  - {fileID: 728661278867439591}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   SerializedTransformProperties:
@@ -330,4 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90d708fd5031bce48b55900892525b1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 8709266266476920731}
+  _networkObjectCache: {fileID: 8709266266476920731}
   Type: 0
+  armorPoint: 0
+  healAmount: 0
