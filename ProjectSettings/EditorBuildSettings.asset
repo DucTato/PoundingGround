@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 4de5dd77eca8f204880c4ea7349ab358
   - enabled: 1
-    path: Assets/Scenes/Ice world.unity
+    path: Assets/Scenes/FFA_IceWorld.unity
     guid: f96a76c559633b741a810aac6c3ce727
   m_configObjects: {}

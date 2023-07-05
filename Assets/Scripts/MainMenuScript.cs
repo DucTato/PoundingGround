@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuScript : MonoBehaviour
 {
-    [SerializeField] private GameObject customizePanel;
+    [SerializeField] private GameObject customizePanel, playPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,8 +29,16 @@ public class MainMenuScript : MonoBehaviour
     {
         Application.Quit();
     }
-    public void startSelectedMap()
+    //public void startSelectedMap()
+    //{
+    //    SceneManager.LoadScene("ice world");
+    //}
+    public void PlayGameButton()
     {
-        SceneManager.LoadScene("ice world");
+        playPanel.gameObject.SetActive(true);
+    }
+    public void playPanelBackToMainButton()
+    {
+        playPanel.gameObject.SetActive(false);
     }
 }

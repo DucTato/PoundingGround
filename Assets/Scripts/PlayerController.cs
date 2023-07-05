@@ -46,6 +46,7 @@ public class PlayerController : NetworkBehaviour
             SetOwnerShipGun();
             CameraController.instance.target = transform;
             uiRef = UIController.instance;
+            uiRef.playerScript = GetComponent<PlayerController>();
             PlayerManager.instance.localClientID = gameObject.GetInstanceID();
             currentArmor = 0;
             currentHealth = 100;
