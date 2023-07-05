@@ -131,10 +131,10 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1672361117648309949}
   _networkObjectCache: {fileID: 1672361117648309949}
   magAmmo: 7
-  resAmmo: 18
+  resAmmo: 14
   timeBetweenShots: 2
   alternateState: {fileID: 0}
-  ammoCasing: {fileID: 466863614232638678, guid: 4db3f7c0e494647428cac0a5085cdd30, type: 3}
+  ammoCasing: {fileID: 466863614232638678, guid: 929ad442f6f2da24ead9b011ec148e88, type: 3}
   shootPoint: {fileID: 3885091500205701354}
   reloadSpeedMult: 0.6
   zoomInMax: 4.2
@@ -149,7 +149,7 @@ MonoBehaviour:
   animator: {fileID: 1093505882059655352}
   netAnimator: {fileID: 0}
   isAutomatic: 0
-  currentAmmo: 1
+  currentAmmo: 7
 --- !u!95 &1093505882059655352
 Animator:
   serializedVersion: 4
@@ -266,7 +266,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 10
+  <PrefabId>k__BackingField: 16
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -430,6 +430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3885091500205701354}
     m_Modifications:
+    - target: {fileID: 3036329551005259120, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5891919794140134304, guid: 28912a8f7e8fc1b43be42cf12e100a5d, type: 3}
       propertyPath: m_RootOrder
       value: 0

@@ -36,16 +36,19 @@ public class PlayerManager : NetworkBehaviour
     //Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (IsServer)
         {
-            Debug.Log(players.Count);
-            foreach (int keys in players.Keys)
+            if (Input.GetKeyUp(KeyCode.Space))
             {
-                Debug.Log(keys + ": " + players[keys].playerName);
-               
+                Debug.Log(players.Count);
+                foreach (int keys in players.Keys)
+                {
+                    Debug.Log(keys + ": " + players[keys].playerName);
+
+                }
+
+                SpawnRandomPickups(Random.Range(0, 4));
             }
-            
-            SpawnRandomPickups(Random.Range(0, 4));
         }
     }
     public void DamagePlayer(int attackerID, float damage, float armorMult, int targetID)
@@ -104,6 +107,12 @@ public class PlayerManager : NetworkBehaviour
     {
         player.transform.position = spawnPoints[spawn].position;
     }
+    [TargetRpc]
+    public void AddWeapon (NetworkConnection connection, GameObject player, GameObject weapon)
+    {
+        PlayerController script = player.GetComponent<PlayerController>();
+        script.LocalAddWeapon(weapon);
+    }
     [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
     public void UpdateKillFeedText(string Feed, int Score)
     {
@@ -141,4 +150,9 @@ public class PlayerManager : NetworkBehaviour
     {
         AddAmmo(players[targetID].connection, players[targetID].playerObject);
     }
+    public void PlayerAddWeapon(int targetID, GameObject weapon)
+    {
+        AddWeapon(players[targetID].connection, players[targetID].playerObject, weapon);
+    }    
+
 }

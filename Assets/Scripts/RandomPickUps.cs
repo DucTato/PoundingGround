@@ -18,9 +18,12 @@ public class RandomPickUps : NetworkBehaviour
     [SerializeField] private GameObject[] commons, uncommons, exotics, legendaries;
     private Animator anim;
     private SpriteRenderer currentSR;
+    private float timeToPickup = 0.5f;
 
     [SyncVar]
     public Rarity rarityType;
+    [field: SyncVar]
+    public int itemToDrop { get; [ServerRpc(RequireOwnership = false)] set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -32,14 +35,17 @@ public class RandomPickUps : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (timeToPickup > 0)
+        {
+            timeToPickup -= Time.deltaTime;
+        }
     }
     private void OnTriggerEnter2D (Collider2D collision)
     {
         if (InstanceFinder.IsServer)
         {
             PlayerController pc = collision.GetComponent<PlayerController>();
-            if (pc != null)
+            if (pc != null && timeToPickup < 0)
             anim.SetBool("isOpened", true);
         }
     }
@@ -49,16 +55,20 @@ public class RandomPickUps : NetworkBehaviour
         switch (rarityType)
         {
             case Rarity.Common:
-                drop = Instantiate(commons[Random.Range(0, commons.Length)], transform.position, transform.rotation);
+                itemToDrop = Random.Range(0, commons.Length);
+                drop = Instantiate(commons[itemToDrop], transform.position, transform.rotation);
                 break;
             case Rarity.Uncommon:
-                drop = Instantiate(uncommons[Random.Range(0, uncommons.Length)], transform.position, transform.rotation);
+                itemToDrop = Random.Range(0, uncommons.Length);
+                drop = Instantiate(uncommons[itemToDrop], transform.position, transform.rotation);
                 break;
             case Rarity.Exotic:
-                drop = Instantiate(exotics[Random.Range(0, exotics.Length)], transform.position, transform.rotation);
+                itemToDrop = Random.Range(0, exotics.Length);
+                drop = Instantiate(exotics[itemToDrop], transform.position, transform.rotation);
                 break;
             case Rarity.Legendary:
-                drop = Instantiate(legendaries[Random.Range(0, legendaries.Length)], transform.position, transform.rotation);
+                itemToDrop = Random.Range(0, legendaries.Length);
+                drop = Instantiate(legendaries[itemToDrop], transform.position, transform.rotation);
                 break;
         }
         InstanceFinder.ServerManager.Spawn(drop);

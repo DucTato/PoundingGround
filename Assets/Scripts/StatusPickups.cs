@@ -31,12 +31,10 @@ public class StatusPickups : NetworkBehaviour
     {
         if (InstanceFinder.IsServer)
         {
-            PlayerController pc = collision.GetComponent<PlayerController>();
-            if (pc != null)
+           touchedPlayer = collision.GetComponent<PlayerController>();
+            if ((touchedPlayer != null && touchedPlayer.currentHealth < 100) || (touchedPlayer.currentArmor < 100 && touchedPlayer != null))
             {
-                Debug.Log("Picked upper's ID is: " + pc.gameObject.GetInstanceID());
-                touchedPlayer = pc;
-                
+                Debug.Log("Picked upper's ID is: " + touchedPlayer.gameObject.GetInstanceID()); 
             }
             anim.SetBool("isOpened", true);
         }

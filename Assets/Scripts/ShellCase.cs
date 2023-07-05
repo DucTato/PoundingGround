@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShellCase : MonoBehaviour
 {
-    [SerializeField] float ejectForce, ejectTorque;
+    [SerializeField] private float ejectForce, ejectTorque;
     private Rigidbody2D RB;
     
     // Start is called before the first frame update

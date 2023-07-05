@@ -41,12 +41,13 @@ public class Guns : NetworkBehaviour
             isReady = true;
             uiControlRef = UIController.instance;
             cameraRef = CameraController.instance;
-            currentUserID = transform.root.gameObject.GetInstanceID();
-            animator = GetComponent<Animator>();
-            netAnimator = GetComponent<NetworkAnimator>();
-            netAnimator.SetTrigger("unholster");
-            animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+
+            //animator = GetComponent<Animator>();
+            //netAnimator = GetComponent<NetworkAnimator>();
+            //netAnimator.SetTrigger("unholster");
+            //animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
             setUI();
+            SetCurrentUserID();
         }
         else
         {
@@ -56,11 +57,17 @@ public class Guns : NetworkBehaviour
             return;
         }
     }
-    //private void Start()
-    //{
-    //    currentUser = transform.root.gameObject.GetComponent<NetworkObject>();
+    private void Start()
+    {
+        Debug.Log("Start() called");
+        animator = GetComponent<Animator>();
+        netAnimator = GetComponent<NetworkAnimator>();
+        netAnimator.SetTrigger("unholster");
+        animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+        setUI();
+        //SetCurrentUserID();
 
-    //}
+    }
     // Update is called once per frame
     void Update()
     {
@@ -183,6 +190,8 @@ public class Guns : NetworkBehaviour
     private void onUnholsterEnd()
     {
         isReady = true;
+        animator.Rebind();
+        animator.Update(0f);
     }
     private void onReloadEnd()
     {
@@ -268,5 +277,16 @@ public class Guns : NetworkBehaviour
     {
         resAmmo += 2 * magAmmo;
         updateUIAmmo();
+    }
+    [ServerRpc]
+    public void SetCurrentUserID()
+    {
+        currentUserID = transform.root.gameObject.GetInstanceID();
+        ObserverSetCurrentUserId(currentUserID);
+    }
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
+    public void ObserverSetCurrentUserId(int UserID)
+    {
+        currentUserID = UserID;
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FishNet;
+
 
 public class PlayerController : NetworkBehaviour
 {
@@ -11,20 +13,23 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Rigidbody2D playerRB;
     [SerializeField] private Animator anim;
     [SerializeField] private float moveSpeed, bodyRotation;
-    [SerializeField] private Transform Head,Body,Legs;
+    [SerializeField] private Transform Head, Body, Legs;
 
+    public GameObject spawnedGun;
     public float currentHealth, currentArmor;
     public Transform gunPoint;
-    
-   
-    
+
+    //[SyncObject]
+    //public readonly SyncList<Guns> availGuns = new SyncList<Guns>();
     public List<Guns> availGuns = new List<Guns>();
     public Guns currentUsedGun;
     public bool EPC = true;
     private Vector2 moveInput;
     private Quaternion rotationAngle;
-    [SyncVar]
-    public int currentGun;
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public int currentGun { get; [ServerRpc(RunLocally = true)] set; }
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public bool pickingUpWeapon { get; [ServerRpc(RunLocally = true)] set; }
     private void Awake()
     {
         instance = this;
@@ -32,12 +37,13 @@ public class PlayerController : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
+
         if (base.IsOwner)
         {
             currentGun = 0;
-            SetOwnerShipGun();
+            //availGuns.Add(gameObject.GetComponentInChildren<Guns>());
             currentUsedGun = availGuns[currentGun].GetComponent<Guns>();
+            SetOwnerShipGun();
             CameraController.instance.target = transform;
             uiRef = UIController.instance;
             PlayerManager.instance.localClientID = gameObject.GetInstanceID();
@@ -55,20 +61,20 @@ public class PlayerController : NetworkBehaviour
         {
             PlayerManager.instance.players.Add(gameObject.GetInstanceID(), new PlayerManager.Player() { currentHealth = 100, currentArmor = 0, playerName = GetComponent<PlayerSkin>().currPlayerName, connection = GetComponent<NetworkObject>().Owner, playerObject = gameObject });
             Debug.Log("Added a Player to Dictionary");
-            
+
         }
 
     }
     // Start is called before the first frame update
     //void Start()
     //{
-        
+
     //}
 
     // Update is called once per frame
     void Update()
     {
-        if(EPC)
+        if (EPC)
         {
             moveInput.x = Input.GetAxisRaw("Horizontal");
             moveInput.y = Input.GetAxisRaw("Vertical");
@@ -78,16 +84,16 @@ public class PlayerController : NetworkBehaviour
             // Looking at the Mouse's Position
             Vector3 mousePos = Input.mousePosition;
             Vector3 screenPoint = CameraController.instance.mainCamera.WorldToScreenPoint(transform.localPosition);
-            Vector2 offset = new Vector2 (mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
+            Vector2 offset = new Vector2(mousePos.x - screenPoint.x, mousePos.y - screenPoint.y);
             float angle = Mathf.Atan2(offset.y, offset.x) * 57.29578f - 90f;
-            Head.rotation = Quaternion.Euler(0,0,angle);
+            Head.rotation = Quaternion.Euler(0, 0, angle);
 
             rotationAngle = Quaternion.AngleAxis(angle, Vector3.forward);
-            
+
             Legs.rotation = Quaternion.Slerp(Legs.rotation, rotationAngle, bodyRotation * 0.9f * Time.deltaTime);
-            Body.rotation = Quaternion.Slerp(Body.rotation, rotationAngle, bodyRotation  * Time.deltaTime);
+            Body.rotation = Quaternion.Slerp(Body.rotation, rotationAngle, bodyRotation * Time.deltaTime);
             // Animating Player's Movement
-            if (moveInput != Vector2.zero) 
+            if (moveInput != Vector2.zero)
             {
                 anim.SetBool("isMoving", true);
 
@@ -106,48 +112,47 @@ public class PlayerController : NetworkBehaviour
                     availGuns[currentGun].animator.Rebind();
                     availGuns[currentGun].animator.Update(0f);
                     // Switch gun
-                    
-                    SwitchWeapon();
+                    currentGun++;
+                    if (currentGun >= availGuns.Count)
+                    {
+                        currentGun = 0;
+                    }
+                    ServerSwitchWeapon();
                 }
+            }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                pickingUpWeapon = true;
+            }
+            if (Input.GetKeyUp(KeyCode.G))
+            {
+                pickingUpWeapon = false;
             }
         }
     }
+   
+    
     [ServerRpc]
-    public void SwitchWeapon()
+    public void ServerSwitchWeapon()
     {
-        currentGun++;
-        if (currentGun >= availGuns.Count)
-        {
-            currentGun = 0;
-        }
-        foreach (Guns thegun in availGuns)
-        {
-            thegun.gameObject.SetActive(false);
-        }
-        availGuns[currentGun].gameObject.SetActive(true);
         ObserversSwitchWeapon();
     }
-    [ObserversRpc(ExcludeOwner = true, ExcludeServer = true)]
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
     private void ObserversSwitchWeapon()
     {
-        currentGun++;
-        if (currentGun >= availGuns.Count)
-        {
-            currentGun = 0;
-        }
         foreach (Guns thegun in availGuns)
         {
             thegun.gameObject.SetActive(false);
         }
         availGuns[currentGun].gameObject.SetActive(true);
-    
+        currentUsedGun = availGuns[currentGun].GetComponent<Guns>();
     }
     public void LocalUICall()
     {
-        
+
         uiRef.healthBar.value = currentHealth;
         uiRef.healthText.text = currentHealth.ToString();
-       
+
         uiRef.armorBar.value = currentArmor;
         uiRef.armorText.text = currentArmor.ToString();
         if (currentArmor <= 0)
@@ -163,7 +168,7 @@ public class PlayerController : NetworkBehaviour
         uiRef.NewKill(Feed);
     }
 
-    public void LocalScoreUI(int Score) 
+    public void LocalScoreUI(int Score)
     {
         uiRef.progressBar.value = Score;
         uiRef.progressText.text = Score.ToString();
@@ -171,16 +176,44 @@ public class PlayerController : NetworkBehaviour
     [ServerRpc]
     private void SetOwnerShipGun()
     {
-        //foreach (Guns thegun in availGuns)
-        //{
-        //    thegun.gameObject.SetActive(true);
-        //    Debug.Log("Owner is: " + base.Owner);
-        //    thegun.gameObject.GetComponent<NetworkObject>().GiveOwnership(base.Owner);
-        //    thegun.gameObject.SetActive(false);
-        //    Debug.Log(thegun.weaponName + " is done");
-        //}
-        //availGuns[currentGun].gameObject.SetActive(true);
-        availGuns[currentGun].GetComponent<NetworkObject>().GiveOwnership(base.Owner);
+        availGuns[currentGun].gameObject.GetComponent<NetworkObject>().GiveOwnership(base.Owner);
+        //availGuns.Dirty(currentGun);
     }
+    public void LocalAddWeapon(GameObject weapon)
+    {
+        //GameObject gunClone = Instantiate(weapon);
+        //InstanceFinder.ServerManager.Spawn(gunClone, base.Owner);
+        //gunClone.transform.parent = gunPoint;
+        //gunClone.transform.position = gunPoint.position;
+        //gunClone.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        //Guns newGun = gunClone.GetComponent<Guns>();
+        //availGuns.Add(newGun);
+        //currentGun = availGuns.Count - 1;
+        //SwitchWeapon();
+        Debug.Log("Local weapon:" + weapon);
+        SpawnGun(weapon);
 
+
+    }
+    [ServerRpc]
+    public void SpawnGun(GameObject weapon)
+    {
+        Debug.Log("ServerRpc called 1");
+        GameObject gunClone = Instantiate(weapon);
+        base.Spawn(gunClone, base.Owner);
+        ObserverSpawnGun(gunClone);
+    }
+    
+
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
+    public void ObserverSpawnGun(GameObject spawned)
+    {
+        spawned.transform.parent = gunPoint;
+        spawned.transform.position = gunPoint.position;
+        spawned.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        Guns newGun = spawned.GetComponent<Guns>();
+        availGuns.Add(newGun);
+        currentGun = availGuns.Count - 1;
+        ServerSwitchWeapon();
+    }
 }

@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a97c5e677ab54444b4f7a503f1a6135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 9
+  moveSpeed: 14
   damageToGive: 80
   ignoreArmorMult: 0
   isExplosive: 1

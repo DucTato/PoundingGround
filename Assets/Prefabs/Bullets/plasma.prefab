@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8193503711574118660}
   - component: {fileID: 7007403134160460017}
   - component: {fileID: 5986664045634268189}
+  - component: {fileID: 2461304426303834664}
   m_Layer: 8
   m_Name: plasma
   m_TagString: Bullet
@@ -230,3 +231,24 @@ TrailRenderer:
   m_MinVertexDistance: 100
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!50 &2461304426303834664
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138046255621062280}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0

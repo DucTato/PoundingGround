@@ -79,7 +79,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -462417837
   m_SortingLayer: 2
-  m_SortingOrder: 0
+  m_SortingOrder: -5
   m_Sprite: {fileID: -2002037461, guid: df7416519127dc3498ebd2f11f26319e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -214,9 +214,13 @@ MonoBehaviour:
   - {fileID: 2864992246454102449, guid: 5a5ca1f4f2cf6384e86b65dbb346a19c, type: 3}
   - {fileID: 2864992246454102449, guid: 8ea560b5b2e987c44b08acb81ec07e93, type: 3}
   - {fileID: 6353529929846863243, guid: cd87b53a8589dd9428b9ad1c3da6fa83, type: 3}
-  uncommons: []
-  exotics: []
-  legendaries: []
+  uncommons:
+  - {fileID: 4254438550386532887, guid: d7f6c6e6abb08814f941e041a740048d, type: 3}
+  - {fileID: 4254438550386532887, guid: f2c5b61055a05e64a9b111f0c5d87b5c, type: 3}
+  exotics:
+  - {fileID: 4254438550386532887, guid: 76e6f528018cfb3448bc80fef5bb3f64, type: 3}
+  legendaries:
+  - {fileID: 4254438550386532887, guid: 2021e9721389481449031c6ab8699ea2, type: 3}
   rarityType: 3
 --- !u!114 &8709266266476920731
 MonoBehaviour:
@@ -248,7 +252,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 3
+  <PrefabId>k__BackingField: 0
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
