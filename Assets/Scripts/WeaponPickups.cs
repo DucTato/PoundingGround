@@ -65,9 +65,8 @@ public class WeaponPickups : NetworkBehaviour
             }
             else
             {
-                if (touchedPlayer.pickingUpWeapon)
-                {
-
+                if (touchedPlayer != null && touchedPlayer.pickingUpWeapon)
+                { 
                     Debug.Log("Player: " + touchedPlayer.gameObject.GetInstanceID() + " picked up a weapon");
                     PlayerManager.instance.PlayerAddWeapon(touchedPlayer.gameObject.GetInstanceID(), weapon);
                     InstanceFinder.ServerManager.Despawn(gameObject);
