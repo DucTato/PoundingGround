@@ -169,6 +169,7 @@ public class Guns : NetworkBehaviour
             }
             ServerSpawnProjectile(base.TimeManager.Tick);
             currentAmmo--;
+            if (currentAmmo < 0) {currentAmmo = 0;}
             updateUIAmmo();
             shotCounter = timeBetweenShots;
         }
