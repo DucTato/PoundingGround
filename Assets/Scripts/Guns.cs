@@ -44,8 +44,8 @@ public class Guns : NetworkBehaviour
 
             animator = GetComponent<Animator>();
             netAnimator = GetComponent<NetworkAnimator>();
-            netAnimator.SetTrigger("unholster");
-            animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+            //netAnimator.SetTrigger("unholster");
+            //animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
             setUI();
             SetCurrentUserID();
         }
@@ -57,16 +57,21 @@ public class Guns : NetworkBehaviour
             return;
         }
     }
-    private void Start()
+    //private void Start()
+    //{
+    //    Debug.Log("Start() called");
+    //    animator = GetComponent<Animator>();
+    //    netAnimator = GetComponent<NetworkAnimator>();
+    //    netAnimator.SetTrigger("unholster");
+    //    animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+    //    setUI();
+    //    SetCurrentUserID();
+
+    //}
+    private void Awake()
     {
-        Debug.Log("Start() called");
         animator = GetComponent<Animator>();
         netAnimator = GetComponent<NetworkAnimator>();
-        netAnimator.SetTrigger("unholster");
-        animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
-        setUI();
-        //SetCurrentUserID();
-
     }
     // Update is called once per frame
     void Update()
@@ -216,8 +221,7 @@ public class Guns : NetworkBehaviour
     {
         isReady = false;
         setUI();
-        animator = GetComponent<Animator>();
-        netAnimator = GetComponent<NetworkAnimator>();
+        
         netAnimator.SetTrigger("unholster");
         animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
         Debug.Log(netAnimator);
