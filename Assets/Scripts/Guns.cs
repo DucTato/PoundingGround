@@ -58,6 +58,7 @@ public class Guns : NetworkBehaviour
             //GetComponent<Guns>().enabled = false;
             return;
         }
+        //Sound Gun
         audioSource = GetComponent<AudioSource>();
     }
     //private void Start()
@@ -176,9 +177,9 @@ public class Guns : NetworkBehaviour
                 SpawnProjectile(0f); // Spawns a local Projectile
             }
             ServerSpawnProjectile(base.TimeManager.Tick);
+            // Âm thanh súng
             if (Input.GetMouseButtonDown(0))
             {
-            // Chơi âm thanh
                 audioSource.Play();
             }
             currentAmmo--;
