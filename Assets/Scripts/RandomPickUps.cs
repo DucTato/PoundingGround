@@ -23,7 +23,7 @@ public class RandomPickUps : NetworkBehaviour
     [SyncVar]
     public Rarity rarityType;
     [field: SyncVar]
-    public int itemToDrop { get; [ServerRpc(RequireOwnership = false)] set; }
+    public int itemToDrop { get; [ServerRpc(RequireOwnership = false, RunLocally = true)] set; }
     // Start is called before the first frame update
     void Start()
     {
