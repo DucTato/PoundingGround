@@ -11,7 +11,7 @@ public class PlayPanelController : MonoBehaviour
 {
     [SerializeField] private string[] mapNames;
     [SerializeField] private InputField IPInputField;
-    [SerializeField] private Tugboat setupIP;
+    [SerializeField] private NetworkManager netManger;
     private string selectedMap, selectedIP, localIP;
     
     // Start is called before the first frame update
@@ -37,7 +37,7 @@ public class PlayPanelController : MonoBehaviour
     }
     public void StartButton()
     {
-        setupIP.SetClientAddress(selectedIP);
+        netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         SceneLoadData sld = new SceneLoadData(selectedMap);
         sld.ReplaceScenes = ReplaceOption.All;
         PlayerPrefs.SetString("recentIP", selectedIP);
@@ -72,10 +72,12 @@ public class PlayPanelController : MonoBehaviour
         if(ip == "")
         {
             selectedIP = localIP;
+            netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         }
         else
         {
             selectedIP = ip;
+            netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         }
     }
     public void SetDefaultState()

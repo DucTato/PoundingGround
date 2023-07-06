@@ -42,10 +42,10 @@ public class Guns : NetworkBehaviour
             uiControlRef = UIController.instance;
             cameraRef = CameraController.instance;
 
-            //animator = GetComponent<Animator>();
-            //netAnimator = GetComponent<NetworkAnimator>();
-            //netAnimator.SetTrigger("unholster");
-            //animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
+            animator = GetComponent<Animator>();
+            netAnimator = GetComponent<NetworkAnimator>();
+            netAnimator.SetTrigger("unholster");
+            animator.SetFloat("reloadSpeedMult", reloadSpeedMult);
             setUI();
             SetCurrentUserID();
         }
