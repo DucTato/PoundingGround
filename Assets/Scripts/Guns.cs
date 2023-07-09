@@ -26,7 +26,7 @@ public class Guns : NetworkBehaviour
     public bool isAutomatic;
     public int currentAmmo;
     private float shotCounter, currSpread;
-    private bool isReady;
+    public bool isReady;
     private int currentUserID;
 
     private const float MAX_PASSED_TIME = 0.3f;

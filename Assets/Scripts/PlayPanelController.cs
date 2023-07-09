@@ -3,19 +3,19 @@ using FishNet.Managing;
 using FishNet.Managing.Scened;
 using FishNet.Transporting.Tugboat;
 using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayPanelController : MonoBehaviour
 {
     [SerializeField] private string[] mapNames;
-    [SerializeField] private InputField IPInputField;
-    [SerializeField] private NetworkManager netManger;
+    [SerializeField] private InputField IPInputField, PortInputField;
+    [SerializeField] private NetworkManager netManager;
     private string selectedMap, selectedIP, localIP;
-    
+    private ushort localPort, selectedPort;
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         selectedMap = mapNames[0];
         if(System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -27,24 +27,26 @@ public class PlayPanelController : MonoBehaviour
         {
             throw new System.Exception("No Internet Connection");
         }
-        SetDefaultState();
+        //netManager = InstanceFinder.NetworkManager;
+        //localPort = netManager.GetComponent<Tugboat>().GetPort();
+        Debug.Log("On Started " );
     }
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    //{
+        
+    //}
+    private void OnEnable()
     {
         
+        netManager = InstanceFinder.NetworkManager;
+        localPort = netManager.GetComponent<Tugboat>().GetPort();
+        selectedPort = localPort;
+        Debug.Log("On Enabled " + localPort);
+        SetDefaultState();
     }
-    public void StartButton()
-    {
-        netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
-        SceneLoadData sld = new SceneLoadData(selectedMap);
-        sld.ReplaceScenes = ReplaceOption.All;
-        PlayerPrefs.SetString("recentIP", selectedIP);
-        PlayerPrefs.Save();
-        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-        
-    }
+    
     public void DropDownMapSelect(int option)
     {
         switch (option)
@@ -69,16 +71,28 @@ public class PlayPanelController : MonoBehaviour
     }
     public void enterIP(string ip)
     {
-        if(ip == "")
+        //NetworkManager netManager = GameObject.Find("NetworkManager").GetComponent<NetworkManager>();
+        if (ip == "")
         {
             selectedIP = localIP;
-            netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         }
         else
         {
             selectedIP = ip;
-            netManger.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         }
+        netManager.GetComponent<Tugboat>().SetClientAddress(selectedIP);
+    }
+    public void enterPort(string portString)
+    {
+        if (portString == "")
+        {
+            selectedPort = localPort;
+        }
+        else
+        {
+            selectedPort = Convert.ToUInt16(portString);
+        }
+        netManager.GetComponent<Tugboat>().SetPort(selectedPort);
     }
     public void SetDefaultState()
     {
@@ -93,5 +107,42 @@ public class PlayPanelController : MonoBehaviour
                 IPInputField.text = "";
             }
         }
+        //if (PlayerPrefs.HasKey("Port"))
+        //{
+        //    if (Convert.ToUInt16(PlayerPrefs.GetInt("Port")) != localPort)
+        //    {
+        //        PortInputField.text = PlayerPrefs.GetInt("Port").ToString();
+        //        localPort = Convert.ToUInt16(PlayerPrefs.GetInt("Port"));
+        //    }
+        //    else
+        //    {
+        //        PortInputField.text = localPort.ToString();
+        //    }
+        //}
+        PortInputField.text = localPort.ToString();
+        Debug.Log("Default state created" + localPort);
+        Debug.Log("PlayerPrefs: " + PlayerPrefs.GetInt("Port"));
+    }
+    public void StartButton()
+    {
+        //if (selectedIP == localIP)
+        //{
+        //    // if you press Start when the IP is your Local IP. It means you started playing as a Host(server)
+        //    InstanceFinder.ServerManager.StartConnection();
+        //}
+        //else
+        //{
+        //    // if you press Start when the IP is not your Local IP. It means you started playing as a Client
+        //    InstanceFinder.ClientManager.StartConnection();
+        //}
+        netManager.GetComponent<Tugboat>().SetClientAddress(selectedIP);
+        netManager.GetComponent<Tugboat>().SetPort(selectedPort);
+        SceneLoadData sld = new SceneLoadData(selectedMap);
+        sld.ReplaceScenes = ReplaceOption.All;
+        PlayerPrefs.SetString("recentIP", selectedIP);
+        //PlayerPrefs.SetInt("Port", Convert.ToInt32(selectedPort));
+        PlayerPrefs.Save();
+        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
+
     }
 }

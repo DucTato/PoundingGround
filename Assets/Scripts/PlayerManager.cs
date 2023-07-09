@@ -87,6 +87,10 @@ public class PlayerManager : NetworkBehaviour
             maxScore = players[attackerID].score;
         }
         UpdateKillFeedText(players[attackerID].playerName + "  fragged  " + players[targetID].playerName, maxScore);
+        if (players[attackerID].score >= 5)
+        {
+            PlayerEndOfMatch(players[attackerID].playerName + " won");
+        }
     }
     [TargetRpc]
     public void AddAmmo(NetworkConnection connection, GameObject player)
@@ -120,6 +124,13 @@ public class PlayerManager : NetworkBehaviour
         Debug.Log(script);
         script.LocalKillFeedCall(Feed);
         script.LocalScoreUI(Score);
+    }
+    [ObserversRpc(ExcludeOwner = false, ExcludeServer = false, BufferLast = true)]
+    public void PlayerEndOfMatch(string message)
+    {
+        PlayerController script = ClientManager.Connection.FirstObject.GetComponent<PlayerController>();
+        Debug.Log(script);
+        script.LocalEndOfMatch(message);
     }
     [ObserversRpc(ExcludeOwner = true, ExcludeServer = false, BufferLast = true)]
     public void SpawnRandomPickups(int rarity)

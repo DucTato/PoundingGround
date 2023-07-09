@@ -174,6 +174,12 @@ public class PlayerController : NetworkBehaviour
         uiRef.progressBar.value = Score;
         uiRef.progressText.text = Score.ToString();
     }
+    public void LocalEndOfMatch(string message)
+    {
+        EPC = false;
+        currentUsedGun.isReady = false;
+        uiRef.EndOfMatch(message);
+    }
     [ServerRpc]
     private void SetOwnerShipGun()
     {
