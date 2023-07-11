@@ -146,7 +146,7 @@ public class UIController : MonoBehaviour
     public void EndOfMatch(string message)
     {
         matchOver.SetActive(true);
-        playerWon = message;
+        playerWon = message + "\nYou'll be directed to Main Menu soon!";
         StartCoroutine(WaitThenDisplayMessage());
     }
     private IEnumerator WaitThenDisplayMessage()

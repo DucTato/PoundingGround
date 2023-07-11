@@ -30,6 +30,7 @@ public class PlayPanelController : MonoBehaviour
         //netManager = InstanceFinder.NetworkManager;
         //localPort = netManager.GetComponent<Tugboat>().GetPort();
         Debug.Log("On Started " );
+        SetDefaultState();
     }
 
     // Update is called once per frame
@@ -44,7 +45,7 @@ public class PlayPanelController : MonoBehaviour
         localPort = netManager.GetComponent<Tugboat>().GetPort();
         selectedPort = localPort;
         Debug.Log("On Enabled " + localPort);
-        SetDefaultState();
+        
     }
     
     public void DropDownMapSelect(int option)
@@ -125,16 +126,28 @@ public class PlayPanelController : MonoBehaviour
     }
     public void StartButton()
     {
-        //if (selectedIP == localIP)
-        //{
-        //    // if you press Start when the IP is your Local IP. It means you started playing as a Host(server)
-        //    InstanceFinder.ServerManager.StartConnection();
-        //}
-        //else
-        //{
-        //    // if you press Start when the IP is not your Local IP. It means you started playing as a Client
-        //    InstanceFinder.ClientManager.StartConnection();
-        //}
+        if (selectedIP == localIP)
+        {
+            // if you press Start when the IP is your Local IP. It means you started playing as a Host(server)
+            StartServer();
+        }
+        else
+        {
+            // if you press Start when the IP is not your Local IP. It means you started playing as a Client
+            InstanceFinder.ClientManager.StartConnection();
+        }
+        
+        
+
+    }
+    private void StartServer()
+    {
+        StartCoroutine(StartServerAndWait());
+    }
+    private IEnumerator StartServerAndWait()
+    {
+        InstanceFinder.ServerManager.StartConnection();
+        yield return new WaitForSeconds(1f);
         netManager.GetComponent<Tugboat>().SetClientAddress(selectedIP);
         netManager.GetComponent<Tugboat>().SetPort(selectedPort);
         SceneLoadData sld = new SceneLoadData(selectedMap);
@@ -143,6 +156,5 @@ public class PlayPanelController : MonoBehaviour
         //PlayerPrefs.SetInt("Port", Convert.ToInt32(selectedPort));
         PlayerPrefs.Save();
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-
     }
 }
