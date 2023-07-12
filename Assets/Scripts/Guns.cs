@@ -23,6 +23,7 @@ public class Guns : NetworkBehaviour
 
     public NetworkAnimator netAnimator;
     private ParticleSystem muzzleFX;
+    private AudioSource audioSource;
     public bool isAutomatic;
     public int currentAmmo;
     private float shotCounter, currSpread;
@@ -56,6 +57,8 @@ public class Guns : NetworkBehaviour
             //GetComponent<Guns>().enabled = false;
             return;
         }
+        //Sound Gun
+        audioSource = GetComponent<AudioSource>();
     }
     //private void Start()
     //{
@@ -173,6 +176,11 @@ public class Guns : NetworkBehaviour
                 SpawnProjectile(0f); // Spawns a local Projectile
             }
             ServerSpawnProjectile(base.TimeManager.Tick);
+            // Âm thanh súng
+            if (Input.GetMouseButtonDown(0)|| Input.GetMouseButton(0))
+            {
+                audioSource.Play();
+            }
             currentAmmo--;
             if (currentAmmo < 0) {currentAmmo = 0;}
             updateUIAmmo();
