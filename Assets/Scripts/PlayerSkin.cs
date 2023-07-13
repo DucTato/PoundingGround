@@ -23,16 +23,17 @@ public class PlayerSkin : NetworkBehaviour
             currPlayerName = "Player";
         currHead = PlayerPrefs.GetInt("Head");
         currBody = PlayerPrefs.GetInt("Body");
-        if (PlayerPrefs.HasKey("HasMarker"))
-        {
-            Marker.gameObject.SetActive(PlayerPrefs.GetInt("HasMarker") == 1);
-        }
-        else
-        {
-            Marker.gameObject.SetActive(false);
-        }
+        
         if (base.IsOwner)
         {
+            if (PlayerPrefs.HasKey("HasMarker"))
+            {
+                Marker.gameObject.SetActive(PlayerPrefs.GetInt("HasMarker") == 1);
+            }
+            else
+            {
+                Marker.gameObject.SetActive(false);
+            }
             setPlayerSkin(currHead, currBody, currPlayerName);
             //Debug.Log("Found PlayerPrefs parts");
         }
